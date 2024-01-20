@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<header>Pathing</header>
+<form action="/paths/find" method="POST">
+    <input type="text" id="from" name="from" placeholder="from"/>
+    <input type="text" id="to" name="to" placeholder="to" />
+    <button type="submit">Find Path</button>
+</form>
+
+<div>
+    <label for="locationDropdown">From:</label>
+    <select id="locationDropdown" onchange="updateMap()">
+        <option value="kingston">Academic Center</option>
+        <option value="location2">Athletic Center</option>
+        <option value="location2">Belknap</option>
+        <option value="location2">Dining Hall</option>
+        <option value="location2">Gustafson Welcom Center</option>
+        <option value="location2">Hampton Hall</option>
+        <option value="location2">Hospitality Center</option>
+        <option value="location2">Kingston Hall</option>
+        <option value="location2">Athletic Center</option>
+        <option value="location2">Learning Commons</option>
+        <option value="location2">Lincoln Hall</option>
+        <option value="location2">Madison House</option>
+        <option value="location2">Mark A. Ouellette Stadium</option>
+        <option value="location2">Morrissey House</option>
+        <option value="location2">Monadnock Hall</option>
+        <option value="location2">New Castle Hall</option>
+        <option value="location2">Robert A. Freese Student Center</option>
+        <option value="location2">Robert Frost Hall</option>
+        <option value="location2">SETA</option>
+        <option value="location2">Tuckerman Hall</option>
+        <option value="location2">Washington Hall</option>
+        <option value="location2">Webster Hall</option>
+        <option value="location2">William S. and Joan Green Center for Student Success</option>
+        <option value="location2">Windsor Hall</option>
+        <option value="location2">That Other Building</option>
+
+        <!-- Add more locations as needed -->
+    </select>
+</div>
+</html>

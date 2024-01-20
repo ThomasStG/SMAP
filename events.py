@@ -4,7 +4,7 @@ from urllib.request import urlopen
 url = "https://25livepub.collegenet.com/events-calendar/nh/manchester/snhu/training/meeting/meetings/tabling/southern-new-hampshire-university/snhu-all-campus-events-calendar"
     
 
-def getEvents(void):
+def getEvents():
     calendar=[]
     html = urlopen(url).read().decode("utf-8")
     soup = BeautifulSoup(html, "html.parser")
@@ -17,5 +17,6 @@ def getEvents(void):
         if event_description == "":
             event_description = "No Description"
         calendar.append((event_title,event_location,event_time,event_description))
-    
     return calendar
+
+getEvents()

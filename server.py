@@ -2,8 +2,14 @@ from flask import Flask, render_template, request
 from waitress import serve
 import sqlite3
 from events import getEvents
+from pathing import findClosest, get_user_location, Graph
+import numpy as np
 
 app = Flask(__name__)
+
+campus_map = Graph(170)
+nodes = np.load('coordinates.npy')
+
 
 buildings = {
     'Academic Center': 0,
@@ -37,6 +43,10 @@ buildings = {
 @app.route('/')
 @app.route('/index')
 def index():
+    return render_template('index.html')
+
+@app.route('/events')
+def events():
     eventCount = [0] * len(buildings)
     calendar = getEvents()
     for event in calendar:
@@ -64,8 +74,21 @@ def index():
             eventCount[16] += 1
         else:
             eventCount[17] += 1
-    return render_template("index.html", title="SNHU", calendar=calendar, eventCount=eventCount)
+    return render_template("events.html", title="SNHU", calendar=calendar, eventCount=eventCount)
     
+@app.route("/paths")
+def paths():
+    return render_template("pathing.html")
+
+@app.route('/paths/find', methods=['POST'])
+def handle_data():
+    from_loc = int(request.form['from'])
+    to_loc = int(request.form['to'])
+    path = campus_map.dijkstra(from_loc, to_loc)
+    return render_template("path.html", path=path)
+
+def FindPath(start, finish):
+    return render_template("", path=campus_map.dijkstra(start, finish))
 
 if __name__ == "__main__":
     serve(app, host="0.0.0.0", port=3000)

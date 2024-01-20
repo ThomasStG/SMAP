@@ -7,13 +7,41 @@
  
 # Library for INT_MAX
 import sys
+from geopy.geocoders import Nominatim
+from geopy.distance import geodesic
+import requests
+import numpy as np
+import math as m
+import time
+
+def findClosest(loc, nodes):
+    
+    closest = [10000, -1]
+    for i in range(len(nodes)):
+        distance = m.sqrt(m.pow(nodes[i][0] - loc[0], 2) + m.pow(nodes[i][1] - loc[1], 2))
+        #print(distance)
+        if distance < closest[0]:
+            closest[0] = distance
+            closest[1] = i
+    return closest
+
+def get_user_location():
+    try:
+        response = requests.get('https://ipinfo.io')
+        data = response.json()
+        return data['loc'].split(',')
+    except:
+        print("Error: Unable to detect your location.")
+        return None, None
 
 class Graph():
  
     def __init__(self, vertices):
         self.V = vertices
         self.graph = [[0 for column in range(vertices)]
-                      for row in range(vertices)]
+            for row in range(vertices)]
+        self.graph = np.load('map.npy')
+
  
     def minDistance(self, dist, sptSet):
         min = sys.maxsize
@@ -37,16 +65,16 @@ class Graph():
             sptSet[x] = True
  
             for y in range(self.V):
-                if self.graph[x][y] > 0 and sptSet[y] == False and \
-                        dist[y] > dist[x] + self.graph[x][y]:
-                    dist[y] = dist[x] + self.graph[x][y]
+                if self.graph[x, y] > 0 and sptSet[y] == False and \
+                        dist[y] > dist[x] + self.graph[x, y]:
+                    dist[y] = dist[x] + self.graph[x, y]
                     parent[y] = x
  
         #self.printSolution(dist, parent)
         path = self.getPath(src, final, parent)
         time = 0
         for i in range(len(path)-1):
-            time += self.graph[path[i]][path[i+1]]
+            time += self.graph[path[i], path[i+1]]
         return (path, time)
  
     def getPath(self, src, final, parent):
@@ -59,17 +87,14 @@ class Graph():
  
 # Driver's code
 if __name__ == "__main__":
-    g = Graph(9)
-    #adjacency graph (node 0 is weight 4 away from node 1 and weight 8 away from node 7. It is not connected to any other nodes)
-    g.graph = [[0, 4, 0, 0, 0, 0, 0, 8, 0],
-               [4, 0, 8, 0, 0, 0, 0, 11, 0],
-               [0, 8, 0, 7, 0, 4, 0, 0, 2],
-               [0, 0, 7, 0, 9, 14, 0, 0, 0],
-               [0, 0, 0, 9, 0, 10, 0, 0, 0],
-               [0, 0, 4, 14, 10, 0, 2, 0, 0],
-               [0, 0, 0, 0, 0, 2, 0, 1, 6],
-               [8, 11, 0, 0, 0, 0, 1, 0, 7],
-               [0, 0, 2, 0, 0, 0, 6, 7, 0]
-               ]
- 
-    print(g.dijkstra(0, 5))
+    g = Graph(170)
+    loc = (-71.450127, 43.038479)
+    #loc = get_user_location()
+    #loc.reverse()
+    #loc = [eval(i) for i in loc]
+    #loc = tuple(loc)
+    #print(loc)
+    nodes = np.load('coordinates.npy')
+    closest = findClosest(loc, nodes)
+    print(closest[0], "is the distance from loc to node ", closest[1])
+    print(g.dijkstra(closest[1], 169))
