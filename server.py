@@ -4,11 +4,13 @@ import sqlite3
 from events import getEvents
 from pathing import findClosest, get_user_location, Graph
 import numpy as np
+import geojson
 
 app = Flask(__name__)
 
 campus_map = Graph(170)
 nodes = np.load('coordinates.npy')
+nodes = nodes.astype(float)
 
 
 buildings = {
@@ -82,13 +84,24 @@ def paths():
 
 @app.route('/paths/find', methods=['POST'])
 def handle_data():
-    from_loc = int(request.form['from'])
-    to_loc = int(request.form['to'])
+    from_str = request.form.get('fromDropdown')
+    to_str = request.form.get('toDropdown')
+    if from_str == "None" or to_str == "None" or not from_str or not to_str:
+        return render_template("pathing.html")
+    from_loc = int(from_str)
+    to_loc = int(to_str)
+    if from_loc == -1:
+        from_loc = findClosest(get_user_location(), nodes)
     path = campus_map.dijkstra(from_loc, to_loc)
+    with open('drawRoutes.js', 'a') as js_file:
+        js_file.write('const optimalRoute = {};'.format(path))
+        js_file.write('const nodes = {};'.format(nodes))
+    
     return render_template("path.html", path=path)
 
 def FindPath(start, finish):
     return render_template("", path=campus_map.dijkstra(start, finish))
 
 if __name__ == "__main__":
+    print(get_user_location())
     serve(app, host="0.0.0.0", port=3000)

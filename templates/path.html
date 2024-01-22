@@ -2,3 +2,20 @@
     <div>Your path is {{path[0]}}</div>
 
 </html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimal Route Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+
+<body>
+    <div id="map" style="height: 500px;"></div>
+    <script src="{{ url_for('static', filename='drawRoutes.js') }}"></script>
+</body>
+
+</html>
