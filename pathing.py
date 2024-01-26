@@ -99,3 +99,4 @@ if __name__ == "__main__":
     print(closest[0], "is the distance from loc to node ", closest[1])
     print(g.dijkstra(closest[1], 169))"""
     print(get_user_location())
+# display path pieces https://chat.openai.com/share/2150ff02-b9d8-44e6-bde8-209e7dc7ad98

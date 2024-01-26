@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <!--
 buildings = {
 'Academic Center': 0,
@@ -74,13 +73,19 @@ buildings = {
     <link href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet" />
 </head>
 
-<body style="background-color:midnightblue;">
-    <h1 style="color: white;">
+<body id="body" style="background-color:midnightblue; display:flex; flex-direction:column;position:absolute;left:0;justify-content:space-between; justify-content:center; align-items:center;">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var w = window.innerWidth;
+            document.getElementById("body").style.width = w + "px";
+        });
+    </script>
+    <h1 style="color: white; text-align:center;">
         SNHU
     </h1>
 
-    <img src="./../static/images/FullMap.png" alt="SNHU Campus" usemap="#workmap">
-
+    <img style="width:100%"src="./../static/images/FullMap.png" id="map"alt="SNHU Campus" usemap="#workmap">
+<!--
     <img src="./../static/images/MapPin.png" alt="Pin"
         style="width:70px;height:auto; position: absolute; left: 694px; top: 835px; z-index: 30;">
     <img src="./../static/images/insidePin.png" alt="Pin"
@@ -150,7 +155,7 @@ buildings = {
     <img src="./../static/images/insidePin.png" alt="Pin"
         style="width:40px;height:auto; position: absolute; left: 626px; top: 669px; z-index: 31;">
 
-
+-->
     <map name="workmap">
         <area target="" alt="SETA" title="SETA"
             coords="774,386,785,379,798,390,793,418,825,428,798,494,768,473,755,486,734,473,742,451,761,413"
@@ -177,15 +182,18 @@ buildings = {
         <area target="" alt="Robert Frost" title="Robert Frost" coords="670,886,704,839,749,871,714,922" shape="poly"
             onclick="RobertFrost()">
     </map>
-
+    <div id="calendar" style="width:90%">
     {% for item in calendar %}
-    <div>
+    <div >
         <p>Title: {{ item[0] }}</p>
         <p>Time: {{ item[1] }}</p>
         <p>Location: {{ item[2] }}</p>
-        <p>Description: {{ item[3] }}</p>
+        <p>Description: {{ item[3]|safe }}</p>
+        <br>
+        <br>
     </div>
     {% endfor %}
+    </div>
 </body>
 <!--        <area target="" alt="sc, gc, dh, lc, rf" title="sc, gc, dh, lc, rf" href="" coords="
                         649,771,

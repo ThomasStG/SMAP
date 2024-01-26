@@ -5,6 +5,7 @@ from events import getEvents
 from pathing import findClosest, get_user_location, Graph
 import numpy as np
 import geojson
+import socket
 
 app = Flask(__name__)
 
@@ -51,31 +52,38 @@ def index():
 def events():
     eventCount = [0] * len(buildings)
     calendar = getEvents()
+
     for event in calendar:
-        if "Aerobic/Exercise Room" in event[2]:
-            eventCount[1] += 1
-        elif "BELKNAP" in event[2]:
-            eventCount[2] += 1
-        elif "Dining Center" in event[2]:
-            eventCount[3] += 1
-        elif "Gustafson Welcome Center" in event[2]:
-            eventCount[4] += 1
-        elif "Hospitality Center" in event[2]:
-            eventCount[7] += 1
-        elif "Library" in event[2] or "Learning Commons" in event[2]:
-            eventCount[9] += 1
-        elif "Student Center" in event[2]:
-            eventCount[18] += 1
-        elif "Robert Frost" in event[2]:
-            eventCount[19] += 1
-        elif "Innovation & Design Education" in event[2]:
-            eventCount[20] += 1
-        elif "Green Center" in event[2]:
-            eventCount[24] += 1
-        elif "OL" in event[2]:
-            eventCount[16] += 1
+        if len(event) > 2:
+            description = event[2]
+
+            if "Aerobic/Exercise Room" in description:
+                eventCount[1] += 1
+            elif "BELKNAP" in description:
+                eventCount[2] += 1
+            elif "Dining Center" in description:
+                eventCount[3] += 1
+            elif "Gustafson Welcome Center" in description:
+                eventCount[4] += 1
+            elif "Hospitality Center" in description:
+                eventCount[7] += 1
+            elif "Library" in description or "Learning Commons" in description:
+                eventCount[9] += 1
+            elif "Student Center" in description:
+                eventCount[18] += 1
+            elif "Robert Frost" in description:
+                eventCount[19] += 1
+            elif "Innovation & Design Education" in description:
+                eventCount[20] += 1
+            elif "Green Center" in description:
+                eventCount[24] += 1
+            elif "OL" in description:
+                eventCount[16] += 1
+            else:
+                eventCount[17] += 1
         else:
-            eventCount[17] += 1
+            print("Invalid event format:", event)
+
     return render_template("events.html", title="SNHU", calendar=calendar, eventCount=eventCount)
     
 @app.route("/paths")
