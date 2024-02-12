@@ -7,3 +7,4 @@ numpy==1.26.3
 requests==2.31.0
 selenium==4.17.2
 waitress==2.1.2
+dotenv==1.0.0

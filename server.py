@@ -3,13 +3,13 @@ from waitress import serve
 import sqlite3
 from events import getEvents
 from pathing import findClosest, get_user_location, Graph
+from pathDisplay import get_path
 import numpy as np
-import geojson
-import socket
+from datetime import datetime
 
 app = Flask(__name__)
 
-campus_map = Graph(170)
+campus_map = Graph(171)
 nodes = np.load('coordinates.npy')
 nodes = nodes.astype(float)
 
@@ -46,7 +46,25 @@ buildings = {
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    calendar = getEvents()
+    format_str = "%A, %B %d, %Y, %I:%M %p"
+    cal1 = []
+    current_date = datetime.now()
+    # Parse the datetime string using the defined format
+    for event in calendar:
+        parsed_datetime = datetime.strptime(event[2], format_str)
+
+        # Extract individual components
+        day_of_week = parsed_datetime.strftime("%A")
+        month = parsed_datetime.strftime("%B")
+        day_of_month = parsed_datetime.day
+        year = parsed_datetime.year
+        time = parsed_datetime.strftime("%I:%M %p")
+        event = (event[0],event[1], (day_of_week, month, day_of_month, year, time), event[3])
+        if day_of_month == current_date.day and month.lower() == current_date.strftime("%B").lower():
+            cal1.append(event)
+        
+    return render_template('index.html', calendar=cal1)
 
 @app.route('/events')
 def events():
@@ -90,6 +108,27 @@ def events():
 def paths():
     return render_template("pathing.html")
 
+@app.route("/calendar")
+def calendar():
+    calendar = getEvents()
+    format_str = "%A, %B %d, %Y, %I:%M %p"
+    cal1 = []
+
+    # Parse the datetime string using the defined format
+    for event in calendar:
+        parsed_datetime = datetime.strptime(event[2], format_str)
+
+        # Extract individual components
+        day_of_week = parsed_datetime.strftime("%A")
+        month = parsed_datetime.strftime("%B")
+        day_of_month = parsed_datetime.day
+        year = parsed_datetime.year
+        time = parsed_datetime.strftime("%I:%M %p")
+        event = (event[0],event[1], (day_of_week, month, day_of_month, year, time), event[3])
+        cal1.append(event)
+    
+    return render_template("calendar.html", calendar=cal1)
+
 @app.route('/paths/find', methods=['POST'])
 def handle_data():
     from_str = request.form.get('fromDropdown')
@@ -101,15 +140,11 @@ def handle_data():
     if from_loc == -1:
         from_loc = findClosest(get_user_location(), nodes)
     path = campus_map.dijkstra(from_loc, to_loc)
-    with open('drawRoutes.js', 'a') as js_file:
-        js_file.write('const optimalRoute = {};'.format(path))
-        js_file.write('const nodes = {};'.format(nodes))
+    path = [2, 0, 1, 3, 5, 8, 29]
+    images = get_path(path)
     
-    return render_template("path.html", path=path)
+    return render_template("path.html", path=path, path_images=images)
 
-def FindPath(start, finish):
-    return render_template("", path=campus_map.dijkstra(start, finish))
 
 if __name__ == "__main__":
-    print(get_user_location())
     serve(app, host="0.0.0.0", port=3000)

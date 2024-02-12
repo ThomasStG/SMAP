@@ -23,11 +23,11 @@ def findClosest(loc, nodes):
 
 def get_user_location():
     g = geocoder.ip('me')
-    print(g.latlng)
+    #print(g.latlng)
     try:
         response = requests.get('https://ipinfo.io')
         data = response.json()
-        print(data)
+        #print(data)
         lat, lon = map(float, data['loc'].split(','))
         return lat, lon
     except:
@@ -87,7 +87,7 @@ class Graph():
  
 # Driver's code
 if __name__ == "__main__":
-    """g = Graph(170)
+    """g = Graph(171)
     loc = (-71.450127, 43.038479)
     #loc = get_user_location()
     #loc.reverse()

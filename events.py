@@ -20,14 +20,14 @@ def getEvents(url = "https://25livepub.collegenet.com/events-calendar/nh/manches
         
         for event in events:
             event_title = event.find("h2").get_text()
-            event_location = event.find("abbr", class_="dtstart").get_text()  # Unused variable
-            event_time = event.find("span", class_="location").get_text()  # Unused variable
+            event_location = event.find("abbr", class_="dtstart").get_text()
+            event_time = event.find("span", class_="location").get_text()
             event_description = event.find("span", class_="description").get_text()
             
             if event_description == "":
-                event_description == "No Description"
+                event_description = "No Description"
 
-            # Define a pattern to match URLs in the text
+            # find urls in the description
             url_pattern = re.compile(r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
 
             # Replace all matched URLs with HTML anchor tags
@@ -35,7 +35,7 @@ def getEvents(url = "https://25livepub.collegenet.com/events-calendar/nh/manches
                 url = match.group(0)
                 loc_match = re.match(r'https?://(?:www\.)?([^\/]+)', url)
                 loc = loc_match.group(1) if loc_match else url
-                return f'<a href="{url}">{loc}</a>'
+                return f'<a style="color:gold" href="{url}">{loc}</a>'
 
             # Perform the substitution
             event_description_with_links = url_pattern.sub(replace_url, event_description)
@@ -51,6 +51,4 @@ def getEvents(url = "https://25livepub.collegenet.com/events-calendar/nh/manches
         if 'response' in locals():
             response.close()
 
-# Example usage
-events_calendar = getEvents()
-print(events_calendar)
+
