@@ -1,5 +1,35 @@
-<!DOCTYPE html>
-    <h1>Menu</h1>
-    <a href="/events">events</a>
-    <a href="/paths">path</a>
-</html>
+{% extends "navbar.html" %}
+
+{% block content %}
+<div class="home">
+    <div class="home-section" style="margin-right:3vw;">
+        <h1>Events Today</h1>
+        {%for item in calendar%}
+            <div class="calendar-element-home">
+                <div class="calendar-day-home">{{ item[2][0][0] }}{{ item[2][0][1] }}{{ item[2][0][2] }}<br>{{item[2][2]}}</div>
+                <!--title: GroupEx Gentle Yoga-->
+            
+                <div style="width:80%;align-items:flex-end;">
+                    <p class="calendar-time">{{ item[2][1] }} {{ item[2][2] }} @ {{ item[2][4] }}</p>
+                    <!--time: -->
+                    <p class="calendar-title">{{ item[0] }}</p>
+                    <p class="calendar-location">{{item[1]}}</p>
+
+                </div>
+                <!--title ,location ,('Friday', 'February', '9', '2024', '12:00 PM'), description-->
+            </div>
+        {%endfor%}
+        {%if calendar|length == 0%}
+            <div style="font-size: max(20%, 50px);
+    text-align: center;color:gold">No Events Today</div>
+        {%endif%}
+    </div>
+    <div class="home-section" style="margin-right:3vw;">
+        <h1>Current Weather</h1>
+    </div>
+    <div class="home-section">
+        <h1>Dining Hall Food</h1>
+    </div>
+</div>
+
+{% endblock %}
