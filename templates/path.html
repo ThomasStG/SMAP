@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-    <div>Your path is {{path[0]}}</div>
+{% extends "navbar.html" %}
 
-</html>
-<!DOCTYPE html>
-<html lang="en">
+{% block content %}
+    <div id="map" style="width: 90%; margin-top: 4rem">
+        <img style="width:100%; z-index: 0; position: absolute; left:0; top:0;" src="./../static/images/CS233.png"
+            alt="SNHU Campus">
+            {%for image in path_images%}
+            <img style="width:100%; z-index: 10; position: absolute; left:0; top:0;" src={{ url_for('static', filename = ''+image) }}>
+            {%endfor%}
+    </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Optimal Route Map</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-</head>
+    
 
-<body>
-    <div id="map" style="height: 500px;"></div>
-    <script src="{{ url_for('static', filename='drawRoutes.js') }}"></script>
-</body>
-
-</html>
+{% endblock %}

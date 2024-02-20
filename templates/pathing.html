@@ -1,71 +1,103 @@
-<!DOCTYPE html>
-<header>Pathing</header>
+{% extends "navbar.html" %}
+
+{% block content %}
+
+<script lang="js">
+    let Direction = [1, 1];
+    const Locations = [[
+        ["-1", "Select Parking Lot                                  "],
+        ["0", "The lot behind Kingston"]], 
+        [
+        ["-1", "Select Building"],
+        ["80", "Academic Center"],
+        ["24", "Athletic Center"],
+        ["54", "Belknap"],
+        ["150", "Conway Hall"],
+        ["78", "Dining Hall"],
+        ["111", "Gustafson Welcome Center"],
+        ["136", "Hampton Hall"],
+        ["65", "Hospitality Center"],
+        ["20", "Kingston Hall"],
+        ["117", "Learning Commons"],
+        ["153", "Lincoln Hall"],
+        ["115", "Madison House"],
+        ["167", "Mark A. Ouellette Stadium"],
+        ["127", "Morrissey House"],
+        ["116", "Monadnock Hall"],
+        ["10", "New Castle Hall"],
+        ["113", "Operations Center"],
+        ["63", "Robert A. Freese Student Center"],
+        ["64", "Robert Frost Hall"],
+        ["168", "SETA"],
+        ["165", "SETA Annex"],
+        ["158", "Tuckerman Hall"],
+        ["32", "Washington Hall"],
+        ["86", "Webster Hall"],
+        ["38", "William S. and Joan Green Center for Student Success"],
+        ["136", "Windsor Hall"],
+        ["17", "Exeter Hall"]
+    ]];
+
+    function FromB() {
+        Direction[0] = 1;
+        updateFromBuildingDropdown();
+    }
+    function FromP() {
+        Direction[0] = 0;
+        updateFromBuildingDropdown();
+    }
+    function ToB() {
+        Direction[1] = 1;
+        updateToBuildingDropdown();
+    }
+    function ToP() {
+        Direction[1] = 0;
+        updateToBuildingDropdown();
+    }
+
+    function updateFromBuildingDropdown() {
+        const fromBuildingDropdown = document.getElementById("fromBuildingDropdown");
+        fromBuildingDropdown.innerHTML = "";
+        Locations[Direction[0]].forEach(item => {
+            const option = document.createElement("option");
+            option.value = item[0];
+            option.textContent = item[1];
+            fromBuildingDropdown.appendChild(option);
+        });
+    }
+
+    function updateToBuildingDropdown() {
+        const toBuildingDropdown = document.getElementById("toBuildingDropdown");
+        toBuildingDropdown.innerHTML = "";
+        Locations[Direction[1]].forEach(item => {
+            const option = document.createElement("option");
+            option.value = item[0];
+            option.textContent = item[1];
+            toBuildingDropdown.appendChild(option);
+        });
+    }
+</script>
+
+<div>
+    From:
+    <button onclick="FromB()">Building</button>
+    <button onclick="FromP()">Parking Lot</button>
+</div>
+<div>
+    To:
+    <button onclick="ToB()">Building</button>
+    <button onclick="ToP()">Parking Lot</button>
+</div>
+
+
 <form action="/paths/find" method="POST">
-    <label for="fromDropdown">From:</label>
-    <select id="fromDropdown" name="fromDropdown">
-        <option value="80">Academic Center</option>
-        <option value="24">Athletic Center</option>
-        <option value="54">Belknap</option>
-        <option value="150">Conway Hall</option>
-        <option value="78">Dining Hall</option>
-        <option value="111">Gustafson Welcom Center</option>
-        <option value="136">Hampton Hall</option>
-        <option value="65">Hospitality Center</option>
-        <option value="20">Kingston Hall</option>
-        <option value="117">Learning Commons</option>
-        <option value="153">Lincoln Hall</option>
-        <option value="115">Madison House</option>
-        <option value="167">Mark A. Ouellette Stadium</option>
-        <option value="127">Morrissey House</option>
-        <option value="116">Monadnock Hall</option>
-        <option value="10">New Castle Hall</option>
-        <option value="113">Operations Center</option>
-        <option value="63">Robert A. Freese Student Center</option>
-        <option value="64">Robert Frost Hall</option>
-        <option value="168">SETA</option>
-        <option value="165">SETA Annex</option>
-        <option value="158">Tuckerman Hall</option>
-        <option value="32">Washington Hall</option>
-        <option value="86">Webster Hall</option>
-        <option value="38">William S. and Joan Green Center for Student Success</option>
-        <option value="136">Windsor Hall</option>
-        <option value="17">Exeter Hall</option>
-        <option value="-1">Use Current Location</option>
+    <label for="fromBuildingDropdown">From:</label>
+    <select class="FromBuilding" id="fromBuildingDropdown" name="fromBuildingDropdown" style="width:52ch">
     </select>
-    <label for="toDropdown">To:</label>
-    <select id="toDropdown" name="toDropdown">
-        <option value="80">Academic Center</option>
-        <option value="24">Athletic Center</option>
-        <option value="54">Belknap</option>
-        <option value="150">Conway Hall</option>
-        <option value="78">Dining Hall</option>
-        <option value="111">Gustafson Welcom Center</option>
-        <option value="136">Hampton Hall</option>
-        <option value="65">Hospitality Center</option>
-        <option value="20">Kingston Hall</option>
-        <option value="117">Learning Commons</option>
-        <option value="153">Lincoln Hall</option>
-        <option value="115">Madison House</option>
-        <option value="167">Mark A. Ouellette Stadium</option>
-        <option value="127">Morrissey House</option>
-        <option value="116">Monadnock Hall</option>
-        <option value="10">New Castle Hall</option>
-        <option value="113">Operations Center</option>
-        <option value="63">Robert A. Freese Student Center</option>
-        <option value="64">Robert Frost Hall</option>
-        <option value="168">SETA</option>
-        <option value="165">SETA Annex</option>
-        <option value="158">Tuckerman Hall</option>
-        <option value="32">Washington Hall</option>
-        <option value="86">Webster Hall</option>
-        <option value="38">William S. and Joan Green Center for Student Success</option>
-        <option value="136">Windsor Hall</option>
-        <option value="17">Exeter Hall</option>
+    <label for="toBuildingDropdown">To:</label>
+    <select id="toBuildingDropdown" name="toBuildingDropdown" style="width:52ch">
     </select>
     <button type="submit">Find Path</button>
 </form>
 
-<div>
-    
-</div>
-</html>
+{% endblock %}

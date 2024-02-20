@@ -23,11 +23,11 @@ def findClosest(loc, nodes):
 
 def get_user_location():
     g = geocoder.ip('me')
-    print(g.latlng)
+    #print(g.latlng)
     try:
         response = requests.get('https://ipinfo.io')
         data = response.json()
-        print(data)
+        #print(data)
         lat, lon = map(float, data['loc'].split(','))
         return lat, lon
     except:
@@ -38,7 +38,7 @@ class Graph():
  
     def __init__(self, vertices):
         self.V = vertices
-        self.graph = [[0 for column in range(vertices)]
+        self.graph = [[0 for column in range(vertices + 1)]
             for row in range(vertices)]
         self.graph = np.load('map.npy')
 
@@ -75,7 +75,7 @@ class Graph():
         time = 0
         for i in range(len(path)-1):
             time += self.graph[path[i], path[i+1]]
-        return (path, time)
+        return (path)
  
     def getPath(self, src, final, parent):
         path = []
@@ -87,7 +87,7 @@ class Graph():
  
 # Driver's code
 if __name__ == "__main__":
-    """g = Graph(170)
+    """g = Graph(171)
     loc = (-71.450127, 43.038479)
     #loc = get_user_location()
     #loc.reverse()
@@ -99,3 +99,4 @@ if __name__ == "__main__":
     print(closest[0], "is the distance from loc to node ", closest[1])
     print(g.dijkstra(closest[1], 169))"""
     print(get_user_location())
+# display path pieces https://chat.openai.com/share/2150ff02-b9d8-44e6-bde8-209e7dc7ad98
