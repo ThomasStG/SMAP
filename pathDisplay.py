@@ -1,5 +1,6 @@
 import os
 
+
 def get_path(path_nodes):
     relevant_images = []
     images_folder = './static/tempMapStuff'
@@ -19,10 +20,6 @@ def get_path(path_nodes):
         elif os.path.exists(backward_path) and not os.path.isdir(backward_path):
             relevant_images.append(backward_path.removeprefix('./static/'))
         else:
-            print(f"Warning: Image not found for path between {start_node} and {end_node}")
+            print(
+                f"Warning: Image not found for path between {start_node} and {end_node}")
     return relevant_images
-
-
-# Example usage
-
-# Now you can use relevant_images to display or process the necessary images

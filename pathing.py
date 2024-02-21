@@ -34,13 +34,28 @@ def get_user_location():
 
 class Graph():
 
-    def __init__(self, vertices):
+    def __init__(self, vertices, graph=[]):
         self.V = vertices
         self.graph = [[0 for column in range(
             vertices + 1)] for row in range(vertices)]
-        self.graph = np.load('map.npy')
+        if graph == []:
+            self.graph = np.load('map.npy')
 
     def minDistance(self, dist, sptSet):
+        """
+        The function `minDistance` returns the index of the minimum distance vertex from a given set of
+        distances and a set of vertices.
+
+        :param dist: The `dist` parameter in the `minDistance` function represents an array that
+        stores the shortest distance from a source node to all other nodes in a graph. Each element in
+        the `dist` array corresponds to a node in the graph, and the value at that index represents the
+        distance from the
+        :param sptSet: The `sptSet` parameter is typically used in Dijkstra's algorithm to keep track of
+        vertices that have been visited and for which the shortest path has been found. It is a boolean
+        array where each element corresponds to a vertex in the graph. If `sptSet[u]` is `
+        :return: the index of the vertex with the minimum distance value in the 'dist' array, among the
+        vertices that are not yet included in the shortest path tree (sptSet).
+        """
         min = sys.maxsize
         min_index = -1
 
@@ -52,18 +67,20 @@ class Graph():
         return min_index
 
     def dijkstra(self, src, final):
-        dist = [sys.maxsize] * self.V
-        parent = [-1] * self.V
-        dist[src] = 0
+        dist = [sys.maxsize] * self.V  # set distance to infinity
+        parent = [-1] * self.V  # -1 times the number of nodes
+        dist[src] = 0  # distance from source node = 0
         sptSet = [False] * self.V
 
         for _ in range(self.V):
+            # calculates minimum distance between
             x = self.minDistance(dist, sptSet)
+            # sptSet is a bool array where the shortest path is.
             sptSet[x] = True
 
             for y in range(self.V):
                 if self.graph[x, y] > 0 and sptSet[y] == False and \
-                        dist[y] > dist[x] + self.graph[x, y]:
+                        dist[y] > dist[x] + self.graph[x, y]:  # visit a node not yet visited
                     dist[y] = dist[x] + self.graph[x, y]
                     parent[y] = x
 
@@ -87,3 +104,4 @@ class Graph():
 if __name__ == "__main__":
     g = Graph(171)
     print(g.dijkstra(46, 169))
+    print(get_user_location())

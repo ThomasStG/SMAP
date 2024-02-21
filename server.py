@@ -6,8 +6,6 @@ import sqlite3
 from events import getEvents
 from pathing import findClosest, get_user_location, Graph
 from pathDisplay import get_path
-from api.CustomEvent.CreateEvent import CreateEvent
-from api.CustomEvent.GetEvent import GetEvents
 from api.Messages.SendMessage import Send, Delete, Get
 import numpy as np
 from datetime import datetime
@@ -15,8 +13,12 @@ from datetime import datetime
 app = Flask(__name__)
 
 campus_map = Graph(171)
-nodes = np.load('coordinates.npy')
-nodes = nodes.astype(float)
+nodes = np.load('coordinates.npy').astype(float)
+
+
+def startApp():
+    serve(app, host="0.0.0.0", port=3000)
+
 
 buildings = {
     80: "Academic Center",
@@ -170,47 +172,6 @@ def handle_data():
     return render_template("path.html", path=path, path_images=images)
 
 
-"""
-@app.route('/createEvent', methods=["GET", "POST"])
-def create():
-    if request.method != "POST":
-        return render_template("customevent.html", success=None)
-    timeformat = "%H:%M:%S"
-    title = request.form['title']
-    description = request.form['description']
-    location = eval(request.form['location'])
-    location_str = buildings.get(location, None)
-    date = request.form['date']
-    time = request.form['time']
-    time += ":00"
-    if title == "" or description == "" or location_str == "" or time == "" or date == "":
-        return render_template("customevent.html", success=False)
-    success = CreateEvent(title, description, date, time, location_str)
-    return render_template("customevent.html", success=success)
-    
-@app.route('/viewEvents')
-def read():
-    events = GetEvents()
-    cal = []
-    for event in events:
-        Y,M,D = event[3].split('-')
-        H, Min, S = event[4].split(':')
-        Min = Min.lstrip('0')
-        if Min == '':
-            Min = 0
-        else:
-            Min = int(Min)
-        d=datetime(int(Y),int(M.lstrip('0')),int(D.lstrip('0')), int(H.lstrip('0')), Min, 0)
-        #return render_template("index.html")
-        mon = d.strftime("%B")
-        day_of_month = d.day
-        year = d.year
-        time = d.strftime("%I:%M %p")
-        cal.append((event[1], event[2], (d.strftime('%A'), mon, day_of_month, year, time), event[5]))
-    return render_template("viewevents.html", events=cal)
-"""
-
-
 @app.route('/chat')
 def show():
     messages = Get()
@@ -238,4 +199,4 @@ def send():
 
 
 if __name__ == "__main__":
-    serve(app, host="0.0.0.0", port=3000)
+    startApp()
