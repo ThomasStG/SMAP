@@ -1,3 +1,5 @@
+import os
+import sys
 from flask import Flask, render_template, request
 from waitress import serve
 import sqlite3
@@ -16,35 +18,44 @@ campus_map = Graph(171)
 nodes = np.load('coordinates.npy')
 nodes = nodes.astype(float)
 
-
 buildings = {
-        80: "Academic Center",
-        24: "Athletic Center",
-        54: "Belknap",
-        150: "Conway Hall",
-        78: "Dining Hall",
-        111: "Gustafson Welcome Center",
-        136: "Hampton Hall",
-        65: "Hospitality Center",
-        20: "Kingston Hall",
-        117: "Learning Commons",
-        153: "Lincoln Hall",
-        115: "Madison House",
-        167: "Mark A. Ouellette Stadium",
-        127: "Morrissey House",
-        116: "Monadnock Hall",
-        10: "New Castle Hall",
-        113: "Operations Center",
-        63: "Robert A. Freese Student Center",
-        64: "Robert Frost Hall",
-        168: "SETA",
-        165: "SETA Annex",
-        158: "Tuckerman Hall",
-        32: "Washington Hall",
-        86: "Webster Hall",
-        38: "William S. and Joan Green Center for Student Success",
-        136: "Windsor Hall",
-        17: "Exeter Hall"}
+    80: "Academic Center",
+    24: "Athletic Center",
+    54: "Belknap",
+    150: "Conway Hall",
+    78: "Dining Hall",
+    111: "Gustafson Welcome Center",
+    136: "Hampton Hall",
+    65: "Hospitality Center",
+    20: "Kingston Hall",
+    117: "Learning Commons",
+    153: "Lincoln Hall",
+    115: "Madison House",
+    167: "Mark A. Ouellette Stadium",
+    127: "Morrissey House",
+    116: "Monadnock Hall",
+    10: "New Castle Hall",
+    113: "Operations Center",
+    63: "Robert A. Freese Student Center",
+    64: "Robert Frost Hall",
+    168: "SETA",
+    165: "SETA Annex",
+    158: "Tuckerman Hall",
+    32: "Washington Hall",
+    86: "Webster Hall",
+    38: "William S. and Joan Green Center for Student Success",
+    136: "Windsor Hall",
+    17: "Exeter Hall"
+}
+"""
+    This Python function retrieves events from a calendar, parses their datetime strings, extracts
+    individual components, and filters events based on the current date and month before rendering them
+    in a template.
+    :return: The `index` function is returning a rendered template called 'index.html' with a filtered
+    list of events for the current day and month. The filtered list is stored in the variable `cal1` and
+    passed to the template as `calendar`.
+    """
+
 
 @app.route('/')
 @app.route('/index')
@@ -64,11 +75,13 @@ def index():
         day_of_month = parsed_datetime.day
         year = parsed_datetime.year
         time = parsed_datetime.strftime("%I:%M %p")
-        event = (event[0],event[1], (day_of_week, month, day_of_month, year, time), event[3])
+        event = (event[0], event[1], (day_of_week, month,
+                 day_of_month, year, time), event[3])
         if day_of_month == current_date.day and month.lower() == current_date.strftime("%B").lower():
             cal1.append(event)
-        
+
     return render_template('index.html', calendar=cal1)
+
 
 @app.route('/events')
 def events():
@@ -106,11 +119,16 @@ def events():
         else:
             print("Invalid event format:", event)
 
-    return render_template("events.html", title="SNHU", calendar=calendar, eventCount=eventCount)
-    
+    return render_template("events.html",
+                           title="SNHU",
+                           calendar=calendar,
+                           eventCount=eventCount)
+
+
 @app.route("/path")
 def paths():
     return render_template("pathing.html")
+
 
 @app.route("/calendar")
 def calendar():
@@ -129,10 +147,12 @@ def calendar():
         day_of_month = parsed_datetime.day
         year = parsed_datetime.year
         time = parsed_datetime.strftime("%I:%M %p")
-        event = (event[0],event[1], (day_of_week, month, day_of_month, year, time), event[3])
+        event = (event[0], event[1], (day_of_week, month,
+                 day_of_month, year, time), event[3])
         cal1.append(event)
-    
+
     return render_template("calendar.html", calendar=cal1)
+
 
 @app.route('/paths/find', methods=["GET", "POST"])
 def handle_data():
@@ -146,8 +166,10 @@ def handle_data():
         from_loc = findClosest(get_user_location(), nodes)
     path = campus_map.dijkstra(from_loc, to_loc)
     images = get_path(path)
-    
+
     return render_template("path.html", path=path, path_images=images)
+
+
 """
 @app.route('/createEvent', methods=["GET", "POST"])
 def create():
@@ -187,6 +209,8 @@ def read():
         cal.append((event[1], event[2], (d.strftime('%A'), mon, day_of_month, year, time), event[5]))
     return render_template("viewevents.html", events=cal)
 """
+
+
 @app.route('/chat')
 def show():
     messages = Get()
@@ -194,14 +218,15 @@ def show():
     for message in messages:
         data = datetime.fromisoformat(message[1])
         delta = datetime.now() - data
-        if  delta.days <= 100:
+        if delta.days <= 100:
             year = data.year
             month = data.month
             day = data.day
             time = f"{data.hour}:{data.minute}:{data.second}:{data.microsecond}"
             mes.append((message[0], message[2], (year, month, day, time)))
-    
+
     return render_template("messages.html", messages=mes)
+
 
 @app.route('/sendMessage', methods=["POST", "GET"])
 def send():
@@ -210,7 +235,7 @@ def send():
     content = request.form['messageContent']
     Send(content)
     return show()
-    
+
+
 if __name__ == "__main__":
     serve(app, host="0.0.0.0", port=3000)
-    
