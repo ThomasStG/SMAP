@@ -3,7 +3,7 @@ import os
 
 def get_path(path_nodes):
     relevant_images = []
-    images_folder = './static/tempMapStuff'
+    images_folder = './static/MapPieces'
     for i in range(len(path_nodes) - 1):
         start_node = path_nodes[i]
         end_node = path_nodes[i + 1]

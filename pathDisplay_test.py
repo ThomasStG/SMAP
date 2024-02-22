@@ -6,5 +6,5 @@ def test_answer():
     assert path
     assert len(path) > 0
     assert type(path[0]) == str
-    assert path[0].startswith("tempMapStuff/")
+    assert path[0].startswith("MapPieces/")
     assert path[0].endswith(".png")
