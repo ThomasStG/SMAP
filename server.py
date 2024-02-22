@@ -6,6 +6,7 @@ from pathing import findClosest, get_user_location, Graph
 from pathDisplay import get_path
 import numpy as np
 from datetime import datetime
+from weather import GetForecast, GetWeather
 
 app = Flask(__name__)
 
@@ -46,6 +47,11 @@ buildings = {
 @app.route('/')
 @app.route('/index')
 def index():
+    #weather section-----------
+    weather = GetWeather()
+    forcast = GetForecast()
+
+    #end weather --------------
     calendar = getEvents()
     format_str = "%A, %B %d, %Y, %I:%M %p"
     cal1 = []
@@ -64,7 +70,7 @@ def index():
         if day_of_month == current_date.day and month.lower() == current_date.strftime("%B").lower():
             cal1.append(event)
         
-    return render_template('index.html', calendar=cal1)
+    return render_template('index.html', calendar=cal1, weather = weather, fcast = forcast)
 
 @app.route('/events')
 def events():
@@ -144,6 +150,8 @@ def handle_data():
     images = get_path(path)
     
     return render_template("path.html", path=path, path_images=images)
+
+
 
 
 if __name__ == "__main__":
