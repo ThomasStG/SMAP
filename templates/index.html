@@ -32,7 +32,7 @@
         <div style="color: aqua;">Current tempature is</div>
         <div style="font-size: max(10%, 25px);color: goldenrod;">  <b>{{ weather.current.temp_f  }}°F</b> <img src={{weather.current.condition.icon}} alt={{weather.current.condition.text}} /> </div>
         <h1>Hourly</h1> 
-        <div>{{weather.current.temp_f, weather.current.feelslike_f, weather.current.condition, weather.current.wind_mph, weather.current.humidity, weather.current.uv}} </div>
+        <div>{{weather.current.temp_f}}°F</div><div>feels like {{weather.current.feelslike_f}}°F</div> <div>Current condition is:<img src={{fcast.current.condition.icon}} alt={{fcast.current.condition.text}} /> </div> <div>{{weather.current.wind_mph}} mph </div> <div>{{weather.current.humidity}} precent </div>  <div>the uv is: {{weather.current.uv}} </div>
         <h1>Tomorrow's weather</h1> 
         <div style="display:flex;gap: 10px;font-size: max(10%, 25px);">  <div style="color:#ff4000;">{{fcast.forecast.forecastday[1].day.maxtemp_f}} </div> <div style="color:aqua"> {{fcast.forecast.forecastday[1].day.mintemp_f}} </div>    </div>
     </div>
