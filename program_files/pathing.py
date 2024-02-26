@@ -12,6 +12,7 @@ import numpy as np
 import math as m
 import geocoder
 import time
+import os
 def findClosest(loc, nodes):
     distances = np.sqrt(np.sum(np.power(nodes - loc, 2), axis=1))
     closest_node_index = np.argmin(distances)
@@ -39,7 +40,11 @@ class Graph():
         self.graph = [[0 for column in range(
             vertices + 1)] for row in range(vertices)]
         if graph == []:
-            self.graph = np.load('map.npy')
+            current_file_path = os.path.abspath(__file__)
+            current_directory = os.path.dirname(current_file_path)
+            map_file_path = os.path.join(current_directory, '..', 'static', 'other', 'map.npy')
+            print (os.path.exists(map_file_path))
+            self.graph = np.load(map_file_path)
 
     def minDistance(self, dist, sptSet):
         """

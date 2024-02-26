@@ -1,8 +1,8 @@
-from events import getEvents
-import pytest
-from datetime import datetime
 from os.path import abspath, dirname
-import sys
+from datetime import datetime
+import pytest
+from program_files.events import getEvents
+
 
 
 def test_answer():

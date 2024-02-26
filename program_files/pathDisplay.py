@@ -3,7 +3,7 @@ import os
 
 def get_path(path_nodes):
     relevant_images = []
-    images_folder = './static/MapPieces'
+    images_folder = "./../static/MapPieces"
     for i in range(len(path_nodes) - 1):
         start_node = path_nodes[i]
         end_node = path_nodes[i + 1]
@@ -15,11 +15,12 @@ def get_path(path_nodes):
         # Check if the image exists in either direction
         forward_path = os.path.join(images_folder, forward_filename)
         backward_path = os.path.join(images_folder, backward_filename)
-        if os.path.exists(forward_path) and not os.path.isdir(forward_path):
-            relevant_images.append(forward_path.removeprefix('./static/'))
-        elif os.path.exists(backward_path) and not os.path.isdir(backward_path):
-            relevant_images.append(backward_path.removeprefix('./static/'))
+        if os.path.exists(forward_path):
+            relevant_images.append(forward_path.removeprefix('../static/'))
+        elif os.path.exists(backward_path):
+            relevant_images.append(backward_path.removeprefix('../static/'))
         else:
             print(
                 f"Warning: Image not found for path between {start_node} and {end_node}")
+    print(relevant_images)
     return relevant_images

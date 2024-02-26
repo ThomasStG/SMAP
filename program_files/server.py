@@ -3,17 +3,20 @@ import sys
 from flask import Flask, render_template, request
 from waitress import serve
 import sqlite3
-from events import getEvents
-from pathing import findClosest, get_user_location, Graph
-from pathDisplay import get_path
+from program_files.events import getEvents
+from program_files.pathing import findClosest, get_user_location, Graph
+from program_files.pathDisplay import get_path
 from api.Messages.SendMessage import Send, Delete, Get
 import numpy as np
 from datetime import datetime
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../templates')
 
 campus_map = Graph(171)
-nodes = np.load('coordinates.npy').astype(float)
+current_file_path = os.path.abspath(__file__)
+current_directory = os.path.dirname(current_file_path)
+map_file_path = os.path.join(current_directory, '..', 'static', 'other', 'coordinates.npy')
+nodes = np.load(map_file_path).astype(float)
 
 
 def startApp():

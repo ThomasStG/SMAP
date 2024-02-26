@@ -1,4 +1,4 @@
-from pathing import Graph, get_user_location
+from program_files.pathing import Graph, get_user_location
 import numpy as np
 
 

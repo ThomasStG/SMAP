@@ -242,7 +242,6 @@ body{
     animation: gradient 2s linear infinite;
     background-size: 200% 100%;
     animation-fill-mode: forwards;
-    -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
 }

@@ -2,17 +2,19 @@ import sqlite3
 
 
 def Send(content):
-    try:
-        connection = sqlite3.connect("./db/database.db")
-        cursor = connection.cursor()
-
-        cursor.execute("INSERT INTO Messages (content) VALUES(?)", (content,))
-        connection.commit()
-        connection.close()
-    except Exception as e:
-        print("Error with the db Operation,", e)
-        return None
-    
+    if len(content) <= 250:
+        try:
+            connection = sqlite3.connect("./db/database.db")
+            cursor = connection.cursor()
+            cursor.execute(
+                "INSERT INTO Messages (content) VALUES(?)", (content,))
+            connection.commit()
+            connection.close()
+        except Exception as e:
+            print("Error with the db Operation,", e)
+            return None
+    else:
+        print("longer")
 
 
 def Delete(id):
@@ -20,13 +22,14 @@ def Delete(id):
         connection = sqlite3.connect("./db/database.db")
         cursor = connection.cursor()
 
-        cursor.execute("DELETE FROM Messages WHERE id=?", id)
+        cursor.execute("DELETE FROM Messages WHERE id=?", (id,))
         connection.commit()
         connection.close()
     except Exception as e:
-        print("Error with the db Operation,", e)
+        print("Error with the db Operation:", e)
         return None
-    
+
+
 def Get():
     try:
         connection = sqlite3.connect("./db/database.db")
