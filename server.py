@@ -146,8 +146,7 @@ def calendar():
 
     # Parse the datetime string using the defined format
     for event in calendar:
-        datetime_str = event[1].replace('\xa0', ' ')
-        parsed_datetime = datetime.strptime(datetime_str, format_str)
+        parsed_datetime = datetime.strptime(event[2], format_str)
 
         # Extract individual components
         day_of_week = parsed_datetime.strftime("%A")
@@ -155,10 +154,9 @@ def calendar():
         day_of_month = parsed_datetime.day
         year = parsed_datetime.year
         time = parsed_datetime.strftime("%I:%M %p")
-        event = (event[0], event[2], (day_of_week, month, day_of_month, year, time), event[3])
+        event = (event[0],event[1], (day_of_week, month, day_of_month, year, time), event[3])
         cal1.append(event)
-    print(cal1)
-
+    
     return render_template("calendar.html", calendar=cal1)
 
 
