@@ -1,28 +1,28 @@
 import os
 import sys
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from waitress import serve
 import sqlite3
-from program_files.events import getEvents
-from program_files.pathing import findClosest, get_user_location, Graph
-from program_files.pathDisplay import get_path
+from events import getEvents
+from pathing import findClosest, get_user_location, Graph
+from pathDisplay import get_path
 from api.Messages.SendMessage import Send, Delete, Get
 import numpy as np
+from weather import GetForecast, GetWeather
 from datetime import datetime
 
-app = Flask(__name__, template_folder='../templates')
+app = Flask(__name__, template_folder='./templates')
 
 campus_map = Graph(171)
 current_file_path = os.path.abspath(__file__)
 current_directory = os.path.dirname(current_file_path)
-map_file_path = os.path.join(current_directory, '..', 'static', 'other', 'coordinates.npy')
+map_file_path = os.path.join(current_directory, '.', 'static', 'other', 'coordinates.npy')
 nodes = np.load(map_file_path).astype(float)
 
 
 def startApp():
     serve(app, host="0.0.0.0", port=3000)
-
-
+    
 buildings = {
     80: "Academic Center",
     24: "Athletic Center",
@@ -65,6 +65,9 @@ buildings = {
 @app.route('/')
 @app.route('/index')
 def index():
+    weather = GetWeather()
+    forecast = GetForecast()
+    print(weather, forecast)
     calendar = getEvents()
     format_str = "%A, %B %d, %Y, %I:%M %p"
     cal1 = []
@@ -85,7 +88,7 @@ def index():
         if day_of_month == current_date.day and month.lower() == current_date.strftime("%B").lower():
             cal1.append(event)
 
-    return render_template('index.html', calendar=cal1)
+    return render_template('index.html', calendar=cal1, weather=weather, forecast=forecast)
 
 
 @app.route('/events')
@@ -152,9 +155,9 @@ def calendar():
         day_of_month = parsed_datetime.day
         year = parsed_datetime.year
         time = parsed_datetime.strftime("%I:%M %p")
-        event = (event[0], event[1], (day_of_week, month,
-                 day_of_month, year, time), event[3])
+        event = (event[0], event[2], (day_of_week, month, day_of_month, year, time), event[3])
         cal1.append(event)
+    print(cal1)
 
     return render_template("calendar.html", calendar=cal1)
 
@@ -199,7 +202,6 @@ def send():
     content = request.form['messageContent']
     Send(content)
     return show()
-
 
 if __name__ == "__main__":
     startApp()

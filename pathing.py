@@ -1,18 +1,12 @@
-"""Copied from https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/"""
-"""It has been edited to return the path of nodes between a start and end node"""
+"""Copied from https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/
+It has been edited to return the path of nodes between a start and end node"""
 
-
-
-
+import os
 import sys
-from geopy.geocoders import Nominatim
-from geopy.distance import geodesic
 import requests
 import numpy as np
-import math as m
 import geocoder
-import time
-import os
+
 def findClosest(loc, nodes):
     distances = np.sqrt(np.sum(np.power(nodes - loc, 2), axis=1))
     closest_node_index = np.argmin(distances)
@@ -23,18 +17,17 @@ def get_user_location():
     g = geocoder.ip('me')
     # print(g.latlng)
     try:
-        response = requests.get('https://ipinfo.io')
+        response = requests.get('https://ipinfo.io', timeout=100)
         data = response.json()
         # print(data)
         lat, lon = map(float, data['loc'].split(','))
         return lat, lon
-    except:
-        print("Error: Unable to detect your location.")
+    except Exception as e:
+        print("Error: Unable to detect your location: ", e)
         return None, None
 
 
 class Graph():
-
     def __init__(self, vertices, graph=[]):
         self.V = vertices
         self.graph = [[0 for column in range(
@@ -42,7 +35,7 @@ class Graph():
         if graph == []:
             current_file_path = os.path.abspath(__file__)
             current_directory = os.path.dirname(current_file_path)
-            map_file_path = os.path.join(current_directory, '..', 'static', 'other', 'map.npy')
+            map_file_path = os.path.join(current_directory, '.', 'static', 'other', 'map.npy')
             print (os.path.exists(map_file_path))
             self.graph = np.load(map_file_path)
 
@@ -90,13 +83,13 @@ class Graph():
                     parent[y] = x
 
         # self.printSolution(dist, parent)
-        path = self.getPath(src, final, parent)
+        path = self.getPath(final, parent)
         time = 0
         for i in range(len(path) - 1):
             time += self.graph[path[i], path[i + 1]]
         return (path)
 
-    def getPath(self, src, final, parent):
+    def getPath(self, final, parent):
         path = []
         current = final
         while current != -1:

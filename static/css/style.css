@@ -9,30 +9,6 @@ input, button {
     border-radius: 10px;
 }
 
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-li {
-    float: left;
-}
-
-li a {
-    display: block;
-    color: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-/* Change the link color to #111 (black) on hover */
-li a:hover {
-    background-color: grey;
-}
-
 h1{
     margin: 1rem
 }
@@ -102,7 +78,7 @@ body{
 }
 
 .content-wrapper{
-    padding-top: 4.5rem;
+    margin-top: 4.5rem;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -115,7 +91,7 @@ body{
     top: 0; 
     left: 0; 
     width: 100vw; 
-    height: 3rem; 
+    height: 4.5rem; 
     background-color: lightgray;
     font-size: max(30%, 15px);
     /*font-family:Copperplate;*/
@@ -126,13 +102,14 @@ body{
 .icon{
     margin-left: 12px; 
     margin-top: 6px; 
-    position:absolute; 
+    position:fixed; 
     left:0; 
     top:0; 
     z-index:2; 
     height: 2.8rem; 
     width:auto;
-}
+    margin-bottom: .2rem;}
+
 .navbar div{
     display: flex;
     justify-content: center;
@@ -253,5 +230,64 @@ body{
 
     100% {
         background-position: -100% 50%;
+    }
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    padding: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+nav ul li {
+    float: left;
+}
+
+nav li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav li a:hover {
+    background-color: grey;
+}
+
+.hamburger-menu {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    .hamburger-menu {
+        display: block;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        cursor: pointer;
+    }
+
+    .navbar ul {
+        display: none;
+        flex-direction: column; 
+        position: absolute;
+        top: 3rem; 
+        left: 0;
+        background-color: lightgray;
+        width: 100%;
+    }
+
+    .navbar ul.show {
+        display: flex;
     }
 }

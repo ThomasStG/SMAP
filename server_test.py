@@ -1,4 +1,4 @@
-from program_files.server import app
+from server import app
 import pytest
 
 

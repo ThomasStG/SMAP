@@ -26,6 +26,31 @@
     </div>
     <div class="home-section" style="margin-right:3vw;">
         <h1>Current Weather</h1>
+        <div style="font-size: max(6%, 24px); display:flex; flex-direction:column; gap: 1rem; justify-content:center;">
+            <img src="{{ forecast.current.condition.icon }}" alt="{{ forecast.current.condition.text }}">
+        <div><strong>Temperature:</strong> {{ weather.current.temp_f }}°F </div>
+        <div><strong>Feels like:</strong> {{ weather.current.feelslike_f|round }}°F</div>
+        <div><strong>Visibility:</strong> {{ weather.current.vis_miles }} miles</div>
+        <div><strong>Condition:</strong>{{ weather.current.condition.text }}</div>
+        <strong>Wind:</strong> {{ weather.current.wind_dir }} at {{ weather.current.wind_mph }} m/h<br>
+        <strong>Pressure:</strong> {{ weather.current.pressure_mb }} mb<br>
+        <strong>Humidity:</strong> {{ weather.current.humidity }}%<br>
+        <strong>UV Index:</strong> {{ weather.current.uv }}<br>
+        <strong>Chance of Rain:</strong> {{ forecast.forecast.forecastday[0].day.daily_chance_of_rain }}%<br>
+        <strong>Chance of Snow:</strong> {{ forecast.forecast.forecastday[0].day.daily_chance_of_snow }}%<br>
+        <strong>Precipitation:</strong> {{ forecast.forecast.forecastday[0].day.totalprecip_in }} inches<br>
+        <strong>MaxTemp:</strong> {{forecast.forecast.forecastday[0].day.maxtemp_f}}<br>
+        <strong>MinTemp:</strong> {{forecast.forecast.forecastday[0].day.mintemp_f}}<br>
+    </div>
+    <h1>Hourly Forcast</h1>
+    {% for forecastday in forecast.forecast.forecastday %}
+        {% for hour in forecastday.hour %}
+        <div class="forecast-element"><p>
+            {{ hour.time.replace(forecast.forecast.forecastday[0].date + " ", "") }} </p> <p> {{ hour.temp_f }}°F</p>
+            <img src="{{ hour.condition.icon }}" alt="{{ hour.condition.text }}"/>
+        </div>
+        {% endfor %}
+    {% endfor %}
     </div>
     <div class="home-section">
         <h1>Dining Hall Food</h1>

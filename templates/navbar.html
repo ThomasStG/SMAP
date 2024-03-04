@@ -6,21 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SMAP</title>
     <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+    <!--<link rel="icon" id="favicon" type="image/x-icon" href="">-->
 </head>
-<img src="../static/images/favicon.png" alt="SMAP Icon" class="icon"/>
+<body>
+<img src="" id="snuseImage" alt="SMAP Icon" class="icon"/>
+<script lang="js">
+
+    let fav_num = Math.floor(Math.random() * 10);
+
+    let favicon = document.createElement('link');
+    favicon.rel = 'icon';
+    document.getElementById('snuseImage').src = `../static/images/SNEESE/${fav_num}.png`
+    favicon.href = `../static/images/SNEESE/${fav_num}.png`;
+
+    document.head.appendChild(favicon);
+</script>
 <div class="navbar"><div>
-    
+    <nav>
     <ul>
         <li><a href="/index">HOME</a></li>
         <li><a href="/path">PATHING</a></li>
         <li><a href="/calendar">CALENDAR</a></li>
         <li><a href="/chat">CHATROOM</a></li>
     </ul>
+    <div class="hamburger-menu" id="hamburger">&#9776;</div>
+</nav>
     </div>
 
 </div>
 <div class="content-wrapper">
     {%block content %} {%endblock%}
 </div>
+<script>
+    document.querySelector('.hamburger-menu').addEventListener('click', function () {
+        document.querySelector('nav ul').classList.toggle('show');
+    });
+    
+</script>
+</body>
 </html>
+
