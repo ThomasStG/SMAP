@@ -12,7 +12,6 @@ def GetWeather():
     if not key:
         print("Weather API key not found.")
         #return None
-    key = "1a11a7238e6541f2b9b191338241002"
     # Define the location for which you want to get weather data (example coordinates)
     latitude = 43.038605
     longitude = -71.452469
@@ -48,8 +47,8 @@ def GetForecast():
     load_dotenv(override=True)
     
     # Retrieve WeatherAPI key from environment variables
-    #key = os.getenv("WEATHER_KEY")
-    key = "1a11a7238e6541f2b9b191338241002"
+    key = os.getenv("WEATHER_KEY")
+    
     # Check if the API key is available
     if not key:
         print("Weather API key not found.")
@@ -66,7 +65,6 @@ def GetForecast():
     days = 2
     # Construct the complete URL
     url = f"{base_url}{endpoint}?key={key}&q={latitude},{longitude}&days={days}"
-    print(url)
     try:
         # Send GET request to the WeatherAPI
         response = requests.get(url)

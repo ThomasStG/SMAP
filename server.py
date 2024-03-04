@@ -67,7 +67,7 @@ buildings = {
 def index():
     weather = GetWeather()
     forecast = GetForecast()
-    print(weather, forecast)
+    #print(weather, forecast)
     calendar = getEvents()
     format_str = "%A, %B %d, %Y, %I:%M %p"
     cal1 = []
@@ -146,7 +146,7 @@ def calendar():
 
     # Parse the datetime string using the defined format
     for event in calendar:
-        parsed_datetime = datetime.strptime(event[2], format_str)
+        parsed_datetime = datetime.strptime(event[1], format_str)
 
         # Extract individual components
         day_of_week = parsed_datetime.strftime("%A")

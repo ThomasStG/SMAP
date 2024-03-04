@@ -9,3 +9,4 @@ def test_answer():
     assert isinstance(path[0], str)
     assert path[0].startswith("MapPieces/")
     assert path[0].endswith(".png")
+    
