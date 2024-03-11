@@ -198,7 +198,9 @@ def send():
     if request.method != "POST":
         return show()
     content = request.form['messageContent']
-    Send(content)
+    honeypot = request.form['bot_test']
+    if honeypot == "":
+        Send(content)
     return show()
 
 if __name__ == "__main__":
