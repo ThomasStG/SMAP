@@ -6,18 +6,27 @@ import sqlite3
 from events import getEvents
 from pathing import findClosest, get_user_location, Graph
 from pathDisplay import get_path
+<<<<<<< HEAD
 from api.Messages.SendMessage import Send, Delete, Get
 import numpy as np
 from weather import GetForecast, GetWeather
+=======
+import numpy as np
+>>>>>>> main
 from datetime import datetime
 
 app = Flask(__name__, template_folder='./templates')
 
 campus_map = Graph(171)
+<<<<<<< HEAD
 current_file_path = os.path.abspath(__file__)
 current_directory = os.path.dirname(current_file_path)
 map_file_path = os.path.join(current_directory, '.', 'static', 'other', 'coordinates.npy')
 nodes = np.load(map_file_path).astype(float)
+=======
+nodes = np.load('coordinates.npy')
+nodes = nodes.astype(float)
+>>>>>>> main
 
 
 def startApp():
@@ -65,17 +74,24 @@ buildings = {
 @app.route('/')
 @app.route('/index')
 def index():
+<<<<<<< HEAD
     weather = GetWeather()
     forecast = GetForecast()
     #print(weather, forecast)
+=======
+>>>>>>> main
     calendar = getEvents()
     format_str = "%A, %B %d, %Y, %I:%M %p"
     cal1 = []
     current_date = datetime.now()
     # Parse the datetime string using the defined format
     for event in calendar:
+<<<<<<< HEAD
         datetime_str = event[1].replace('\xa0', ' ')
         parsed_datetime = datetime.strptime(datetime_str, format_str)
+=======
+        parsed_datetime = datetime.strptime(event[2], format_str)
+>>>>>>> main
 
         # Extract individual components
         day_of_week = parsed_datetime.strftime("%A")
@@ -83,6 +99,7 @@ def index():
         day_of_month = parsed_datetime.day
         year = parsed_datetime.year
         time = parsed_datetime.strftime("%I:%M %p")
+<<<<<<< HEAD
         event = (event[0], event[1], (day_of_week, month,
                  day_of_month, year, time), event[3])
         if day_of_month == current_date.day and month.lower() == current_date.strftime("%B").lower():
@@ -90,6 +107,13 @@ def index():
 
     return render_template('index.html', calendar=cal1, weather=weather, forecast=forecast)
 
+=======
+        event = (event[0],event[1], (day_of_week, month, day_of_month, year, time), event[3])
+        if day_of_month == current_date.day and month.lower() == current_date.strftime("%B").lower():
+            cal1.append(event)
+        
+    return render_template('index.html', calendar=cal1)
+>>>>>>> main
 
 @app.route('/events')
 def events():
@@ -127,6 +151,7 @@ def events():
         else:
             print("Invalid event format:", event)
 
+<<<<<<< HEAD
     return render_template("events.html",
                            title="SNHU",
                            calendar=calendar,
@@ -138,6 +163,14 @@ def paths():
     return render_template("pathing.html")
 
 
+=======
+    return render_template("events.html", title="SNHU", calendar=calendar, eventCount=eventCount)
+    
+@app.route("/paths")
+def paths():
+    return render_template("pathing.html")
+
+>>>>>>> main
 @app.route("/calendar")
 def calendar():
     calendar = getEvents()
@@ -146,7 +179,11 @@ def calendar():
 
     # Parse the datetime string using the defined format
     for event in calendar:
+<<<<<<< HEAD
         parsed_datetime = datetime.strptime(event[1], format_str)
+=======
+        parsed_datetime = datetime.strptime(event[2], format_str)
+>>>>>>> main
 
         # Extract individual components
         day_of_week = parsed_datetime.strftime("%A")
@@ -159,8 +196,12 @@ def calendar():
     
     return render_template("calendar.html", calendar=cal1)
 
+<<<<<<< HEAD
 
 @app.route('/paths/find', methods=["GET", "POST"])
+=======
+@app.route('/paths/find', methods=['POST'])
+>>>>>>> main
 def handle_data():
     from_str = request.form.get('fromBuildingDropdown')
     to_str = request.form.get('toBuildingDropdown')
@@ -171,6 +212,7 @@ def handle_data():
     if from_loc == -1:
         from_loc = findClosest(get_user_location(), nodes)
     path = campus_map.dijkstra(from_loc, to_loc)
+<<<<<<< HEAD
     images = get_path(path)
 
     return render_template("path.html", path=path, path_images=images)
@@ -205,3 +247,13 @@ def send():
 
 if __name__ == "__main__":
     startApp()
+=======
+    path = [2, 0, 1, 3, 5, 8, 29]
+    images = get_path(path)
+    
+    return render_template("path.html", path=path, path_images=images)
+
+
+if __name__ == "__main__":
+    serve(app, host="0.0.0.0", port=3000)
+>>>>>>> main

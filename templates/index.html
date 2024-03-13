@@ -3,7 +3,11 @@
 {% block content %}
 <div class="home">
     <div class="home-section" style="margin-right:3vw;">
+<<<<<<< HEAD
         <h1 class="rainbow">Events Today</h1>
+=======
+        <h1>Events Today</h1>
+>>>>>>> main
         {%for item in calendar%}
             <div class="calendar-element-home">
                 <div class="calendar-day-home">{{ item[2][0][0] }}{{ item[2][0][1] }}{{ item[2][0][2] }}<br>{{item[2][2]}}</div>
@@ -26,6 +30,7 @@
     </div>
     <div class="home-section" style="margin-right:3vw;">
         <h1>Current Weather</h1>
+<<<<<<< HEAD
         <div style="font-size: max(6%, 24px); display:flex; flex-direction:column; gap: 1rem; justify-content:center;">
             <img src="{{ forecast.current.condition.icon }}" alt="{{ forecast.current.condition.text }}">
         <div><strong>Temperature:</strong> {{ weather.current.temp_f }}°F </div>
@@ -51,11 +56,16 @@
         </div>
         {% endfor %}
     {% endfor %}
+=======
+>>>>>>> main
     </div>
     <div class="home-section">
         <h1>Dining Hall Food</h1>
     </div>
 </div>
 
+<<<<<<< HEAD
 <p></p>Powered by <a href="https://www.weatherapi.com/" title="Free Weather API">WeatherAPI.com</a></p>
+=======
+>>>>>>> main
 {% endblock %}

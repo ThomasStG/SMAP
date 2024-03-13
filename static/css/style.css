@@ -9,6 +9,33 @@ input, button {
     border-radius: 10px;
 }
 
+<<<<<<< HEAD
+=======
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+    background-color: grey;
+}
+
+>>>>>>> main
 h1{
     margin: 1rem
 }
@@ -78,7 +105,11 @@ body{
 }
 
 .content-wrapper{
+<<<<<<< HEAD
     margin-top: 4.5rem;
+=======
+    padding-top: 4.5rem;
+>>>>>>> main
     width: 100%;
     display: flex;
     justify-content: center;
@@ -91,6 +122,7 @@ body{
     top: 0; 
     left: 0; 
     width: 100vw; 
+<<<<<<< HEAD
     height: 4.5rem; 
     background-color: lightgray;
     font-size: max(30%, 15px);
@@ -110,6 +142,15 @@ body{
     width:auto;
     margin-bottom: .2rem;}
 
+=======
+    height: 3rem; 
+    background-color: lightgray;
+    font-size: max(20%, 20px);
+    /*font-family:Copperplate;*/
+    font-family: Arial, Helvetica, sans-serif;
+    color:black;
+}
+>>>>>>> main
 .navbar div{
     display: flex;
     justify-content: center;
@@ -131,10 +172,13 @@ body{
     margin-left: 2vw;
     margin-right: 2vw;
     justify-content: space-evenly;
+<<<<<<< HEAD
     flex-wrap: wrap;
     flex-direction: row;
     align-content: stretch;
     flex-wrap: nowrap;
+=======
+>>>>>>> main
 }
 
 .calendar-day-home{
@@ -162,7 +206,11 @@ body{
     }
 
     .home-section {
+<<<<<<< HEAD
         /*flex: auto;*/
+=======
+        flex: auto;
+>>>>>>> main
         margin-bottom: 20px;
         /* Add some space between sections */
     }
@@ -177,6 +225,7 @@ body{
     justify-content: space-evenly;
     align-items: center;
     width: 70%;
+<<<<<<< HEAD
 }
 .messages{
     display:flex;
@@ -290,4 +339,6 @@ nav li a:hover {
     .navbar ul.show {
         display: flex;
     }
+=======
+>>>>>>> main
 }

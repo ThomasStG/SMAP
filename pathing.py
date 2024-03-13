@@ -15,11 +15,19 @@ def findClosest(loc, nodes):
 
 def get_user_location():
     g = geocoder.ip('me')
+<<<<<<< HEAD
     # print(g.latlng)
+=======
+    #print(g.latlng)
+>>>>>>> main
     try:
         response = requests.get('https://ipinfo.io', timeout=100)
         data = response.json()
+<<<<<<< HEAD
         # print(data)
+=======
+        #print(data)
+>>>>>>> main
         lat, lon = map(float, data['loc'].split(','))
         return lat, lon
     except Exception as e:
@@ -100,6 +108,21 @@ class Graph():
 
 # Driver's code
 if __name__ == "__main__":
+<<<<<<< HEAD
     g = Graph(171)
     print(g.dijkstra(46, 169))
+=======
+    """g = Graph(171)
+    loc = (-71.450127, 43.038479)
+    #loc = get_user_location()
+    #loc.reverse()
+    #loc = [eval(i) for i in loc]
+    #loc = tuple(loc)
+    #print(loc)
+    nodes = np.load('coordinates.npy')
+    closest = findClosest(loc, nodes)
+    print(closest[0], "is the distance from loc to node ", closest[1])
+    print(g.dijkstra(closest[1], 169))"""
+>>>>>>> main
     print(get_user_location())
+# display path pieces https://chat.openai.com/share/2150ff02-b9d8-44e6-bde8-209e7dc7ad98

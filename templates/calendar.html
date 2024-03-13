@@ -21,7 +21,10 @@
             <p class="calendar-title">{{ item[0] }}</p>
             <p class="calendar-location">{{item[1]}}</p>
             <p class="calendar-description">{{ item[3]|safe }}</p>
+<<<<<<< HEAD
             <!--(title, )-->
+=======
+>>>>>>> main
         </div>
     </div>
     {% endfor %}
@@ -44,6 +47,7 @@
             }
         }
     });
+<<<<<<< HEAD
     document.getElementById("locInput").addEventListener("input", function () {
         var filter, elements, location, locationTxt, i;
         filter = document.getElementById('locInput').value.toUpperCase();
@@ -54,6 +58,18 @@
                 locationTxt = location.textContent || location.innerText;
                 if (locationTxt.toUpperCase().indexOf(filter) > -1) {
                     elements[i].style.display = "";
+=======
+    document.getElementById("locInput").addEventListener("input",function (){
+        var filter, elements, location, locationTxt, i;
+        filter=document.getElementById('locInput').value.toUpperCase();
+        elements=document.getElementById('calendar').getElementsByClassName('calendar-element');
+        for(i = 0; i < elements.length; i++){
+            location=elements[i].getElementsByClassName('calendar-location')[0];
+            if (location){
+                locationTxt = location.textContent || location.innerText;
+                if(locationTxt.toUpperCase().indexOf(filter) > -1){
+                    elements[i].style.display="";
+>>>>>>> main
                 }
                 else elements[i].style.display = "none";
             }
@@ -89,7 +105,11 @@
             }
         }
     });
+<<<<<<< HEAD
     document.getElementById("searchDropdown").addEventListener("change", function () {
+=======
+    document.getElementById("searchDropdown").addEventListener("change", function (){
+>>>>>>> main
         var titleInput, locInput, desInput, dateInput;
         titleInput = document.getElementById("titleInput");
         locInput = document.getElementById("locInput");
