@@ -29,7 +29,24 @@
     </div>
     <div class="home-section">
         <h1>Dining Hall Food</h1>
-    </div>
+        {% for item in food %}
+            <div class="food-element-home">
+
+                <div class="food-time-home">{item[0]}</div>
+                <div style="width:80%;align-items:flex-end;"></div>
+                    <p class="food-title">{item[1]}</p>
+                    <p class="food-Description">{item[2]}</p>
+                    <p class="food-quality">{item[3]}</p>
+                    <p class="food-facts">{item[4]}</p>
+
+                </div>
+            </div>
+        {% endfor %}
+        {%if food|length == 0 %}
+                <div style="font-size: max(20%, 50px);
+        text-align: center;color:gold">No Food Today</div>
+            {% endif %}
+    
 </div>
 
 {% endblock %}
