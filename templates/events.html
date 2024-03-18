@@ -77,7 +77,11 @@ buildings = {
 
                 // Add xOffset to X coordinates and yOffset to Y coordinates
                 for (var i = 0; i < coords.length; i += 2) {
+<<<<<<< HEAD
+                    coords[i] = Math.round((parseFloat(coords[i]) * scaleFactor + xOffset));
+=======
                     coords[i] = Math.round((parseFloat(coords[i]) * (scaleFactor + xOffset)));
+>>>>>>> main
                     coords[i + 1] = Math.round((parseFloat(coords[i + 1]) * (scaleFactor + yOffset)));
                 }
 

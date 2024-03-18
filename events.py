@@ -20,8 +20,8 @@ def getEvents(url = "https://25livepub.collegenet.com/events-calendar/nh/manches
         
         for event in events:
             event_title = event.find("h2").get_text()
-            event_location = event.find("abbr", class_="dtstart").get_text()
-            event_time = event.find("span", class_="location").get_text()
+            event_time = event.find("abbr", class_="dtstart").get_text()
+            event_location = event.find("span", class_="location").get_text()
             event_description = event.find("span", class_="description").get_text()
             
             if event_description == "":

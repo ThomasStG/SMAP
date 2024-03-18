@@ -1,6 +1,18 @@
 {% extends "navbar.html" %}
 
 {% block content %}
+<<<<<<< HEAD
+    <div id="map" style="width: 90%; margin-top: 4rem">
+        <img style="width:100%; z-index: 0; position: absolute; left:0; top:0;" src="./../static/images/CS233.png"
+            alt="SNHU Campus">
+            {%for image in path_images%}
+            <img style="width:100%; z-index: 10; position: absolute; left:0; top:0;" src={{ url_for('static', filename = ''+image) }}>
+            {%endfor%}
+    </div>
+
+    
+
+=======
     <div>Your path is {{path}}</div>
 
     <div id="map" style="height: 500px;">
@@ -29,4 +41,5 @@
         });
     </script>
 
+>>>>>>> main
 {% endblock %}

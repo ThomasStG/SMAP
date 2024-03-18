@@ -1,0 +1,69 @@
+{% extends "navbar.html" %}
+
+{% block content %}
+
+{%if success != None %}
+{%if success == True %}
+<div>Event Created Successfully</div>
+{%else%}
+<div>There was an error in your Event Creation. Please make sure all fields are filled and try again</div>
+{%endif%}
+{%endif%}
+<div>
+    <form id="eventForm" name="eventForm" action="/createEvent" method="POST">
+        <input type="text" id="title" name="title" placeholder="Title" />
+        <input type="text" id="description" name="description" placeholder="Description" />
+        <input type="date" id="date" name="date" max="2024-05-30" min="2024-01-01" />
+        <input type="time" id="time" name="time" min="04:00" max="20:00" required />
+        <select id="location" name="location" id="location">
+            {% for building in buildings %}
+            <option value={{building[0]}}>{{building[1]}}</option>
+            {% endfor %}
+
+        </select>
+        <button id="createButton" type="submit">Create</button>
+    </form>
+</div>
+<script lang="ts">
+    buildings = [["-1", "Select Building"],
+    ["80", "Academic Center"],
+    ["24", "Athletic Center"],
+    ["54", "Belknap"],
+    ["150", "Conway Hall"],
+    ["78", "Dining Hall"],
+    ["111", "Gustafson Welcome Center"],
+    ["136", "Hampton Hall"],
+    ["65", "Hospitality Center"],
+    ["20", "Kingston Hall"],
+    ["117", "Learning Commons"],
+    ["153", "Lincoln Hall"],
+    ["115", "Madison House"],
+    ["167", "Mark A. Ouellette Stadium"],
+    ["127", "Morrissey House"],
+    ["116", "Monadnock Hall"],
+    ["10", "New Castle Hall"],
+    ["113", "Operations Center"],
+    ["63", "Robert A. Freese Student Center"],
+    ["64", "Robert Frost Hall"],
+    ["168", "SETA"],
+    ["165", "SETA Annex"],
+    ["158", "Tuckerman Hall"],
+    ["32", "Washington Hall"],
+    ["86", "Webster Hall"],
+    ["38", "William S. and Joan Green Center for Student Success"],
+    ["136", "Windsor Hall"],
+    ["17", "Exeter Hall"]];
+
+    function updateLocationDropdown() {
+        const locationDropdown = document.getElementById("location");
+        locationDropdown.innerHTML = "";
+        buildings.forEach(item => {
+            const option = document.createElement("option");
+            option.value = item[0];
+            option.textContent = item[1];
+            locationDropdown.appendChild(option);
+        });
+    }
+    updateLocationDropdown();
+</script>
+{% endblock %}
