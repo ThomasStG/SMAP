@@ -6,8 +6,10 @@ from pathing import findClosest, get_user_location, Graph
 from pathDisplay import get_path
 import numpy as np
 from datetime import datetime
+from seleniumFood import getFood
 
 app = Flask(__name__)
+app.debug = True
 
 campus_map = Graph(171)
 nodes = np.load('coordinates.npy')
@@ -43,9 +45,15 @@ buildings = {
     'Windsor Hall': 25, ##
 }
 
+def startApp():
+    print("http://localhost:3000")
+    serve(app, host="0.0.0.0", port=3000)
+    #app.run()
+
 @app.route('/')
 @app.route('/index')
 def index():
+    food = getFood()
     calendar = getEvents()
     format_str = "%A, %B %d, %Y, %I:%M %p"
     cal1 = []
@@ -64,7 +72,7 @@ def index():
         if day_of_month == current_date.day and month.lower() == current_date.strftime("%B").lower():
             cal1.append(event)
         
-    return render_template('index.html', calendar=cal1)
+    return render_template('index.html', calendar=cal1, food=food)
 
 @app.route('/events')
 def events():
@@ -145,6 +153,9 @@ def handle_data():
     
     return render_template("path.html", path=path, path_images=images)
 
+@app.route('/get_food_data')
+def get_food_data():
+    return getFood()
 
 if __name__ == "__main__":
-    serve(app, host="0.0.0.0", port=3000)
+    startApp()
