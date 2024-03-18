@@ -6,7 +6,7 @@ from pathing import findClosest, get_user_location, Graph
 from pathDisplay import get_path
 import numpy as np
 from datetime import datetime
-from foodScraper import getFood
+from seleniumFood import getFood
 
 app = Flask(__name__)
 
@@ -43,6 +43,11 @@ buildings = {
     'William S. and Joan Green Center for Student Success': 24,
     'Windsor Hall': 25, ##
 }
+
+def startApp():
+    print("http://localhost:3000")
+    serve(app, host="0.0.0.0", port=3000)
+    #app.run()
 
 @app.route('/')
 @app.route('/index')
@@ -147,6 +152,9 @@ def handle_data():
     
     return render_template("path.html", path=path, path_images=images)
 
+@app.route('/get_food_data')
+def get_food_data():
+    return getFood()
 
 if __name__ == "__main__":
-    serve(app, host="0.0.0.0", port=3000)
+    startApp()
