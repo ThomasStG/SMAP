@@ -37,7 +37,23 @@ def GetForecast():
     #load_dotenv(override=True)
     
     # Retrieve WeatherAPI key from environment variables
+
+
+
+
+
+
     key = "1a11a7238e6541f2b9b191338241002"#os.getenv("WEATHER_KEY")
+
+
+
+
+
+
+
+
+
+    
     # Check if the API key is available
     if not key:
         print("Weather API key not found.")

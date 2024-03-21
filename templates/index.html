@@ -29,14 +29,32 @@
     <div class="home-section" style="margin-right:3vw;">
         <h1>Current Weather</h1> <!-- current weather here-->
         
-        <div style="font-size: max(10%, 25px);color: goldenrod;">  <b>{{ weather.current.temp_f  }}°F</b><img src ="{{fcast.current.condition.icon}}" alt ="{{fcast.current.condition.text}}"></div> 
+        <div style="font-size: max(10%, 25px);color: rgb(255, 196, 45);">  <b>{{ weather.current.temp_f  }}°F</b><img src ="{{fcast.current.condition.icon}}" alt ="{{fcast.current.condition.text}}"></div> 
         <div>feels like {{weather.current.feelslike_f}}°F</div>
          <div>Current condition is: {{fcast.current.condition.text}}</div>  
-         <div>{{weather.current.wind_mph}} mph </div>
+         <div>{{weather.current.wind_mph}} mph & the direction is {{weather.current.wind_dir}}</div>
+         
           <div>{{weather.current.humidity}} precent </div>
             <div>the uv is: {{weather.current.uv}} </div>
+            <div></div>
+            <div>HOURLY</div>
+            
+            <div>{{fcast.forecast.forecastday[0].hour[8].temp_f}} F at 8 am</div>
+            
+            <div>{{fcast.forecast.forecastday[0].hour[10].temp_f}} F at 10 am</div>
+            
+            <div>{{fcast.forecast.forecastday[0].hour[12].temp_f}} F at noon</div>
+            
+            <div>{{fcast.forecast.forecastday[0].hour[14].temp_f}} F at 2 pm</div> 
+
+            <div>{{fcast.forecast.forecastday[0].hour[16].temp_f}} F at 4 pm</div>
+
+            <div>{{fcast.forecast.forecastday[0].hour[18].temp_f}} F at 6 pm</div>
+
+            <div>{{fcast.forecast.forecastday[0].hour[20].temp_f}} F at 8 pm</div>
         <h1>Tomorrow's weather</h1> 
         <div style="display:flex;gap: 10px;font-size: max(10%, 25px);">  <div style="color:#ff4000;">{{fcast.forecast.forecastday[1].day.maxtemp_f}} </div> <div style="color:aqua"> {{fcast.forecast.forecastday[1].day.mintemp_f}} </div>    </div>
+    <div><img src ="{{fcast.forecast.forecastday[1].day.condition.icon}}" alt ="{{fcast.forecast.forecastday[1].day.condition.text}}" > </div>
     </div>
     <div class="home-section">
         <h1>Dining Hall Food</h1>
