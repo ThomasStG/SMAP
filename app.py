@@ -13,10 +13,11 @@ if len(sys.argv) > 1:
         # Calculate the path to pip based on the Python executable path
         pip_path = os.path.join(os.path.dirname(python_executable), "pip")
 
-        subprocess.run([pip_path, "install", "-r", "./static/documentation/requirements.txt"], check=True)
+        subprocess.run([pip_path, "install", "-r",
+                       "./static/documentation/requirements.txt"], check=True)
     else:
         for item in os.listdir('.'):
             if item.endswith("_test.py"):
-                subprocess.run(["python3", item], check=True)       
+                subprocess.run(["python3", item], check=True)
 else:
     startApp()
