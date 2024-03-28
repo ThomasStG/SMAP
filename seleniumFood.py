@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 def getFood():
     food = []
+
     chrome_options = Options()
     chrome_options.add_argument("--headless")  # Run in headless mode
     chrome_options.add_argument("--disable-gpu")  # Disable GPU acceleration

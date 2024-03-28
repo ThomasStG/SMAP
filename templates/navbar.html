@@ -1,28 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SMAP</title>
+    <link rel="stylesheet" href="../static/css/style.css" />
+    <!--<link rel="icon" id="favicon" type="image/x-icon" href="">-->
+  </head>
+  <body>
+    <img src="" id="snuseImage" alt="SMAP Icon" class="icon" />
+    <script lang="js">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Title Here</title>
-    <link rel="stylesheet" href="../static/css/style.css">
-</head>
+      let fav_num = Math.floor(Math.random() * 10);
 
-<body id="body">
-    <div id="navbar" class="navbar">
-        <div>
-            <ul>
-                <li><a href="/">HOME</a></li>
-                <li><a href="/events">EVENTS</a></li>
-                <li><a href="/paths">PATH</a></li>
-                <li><a href="/calendar">CALENDAR</a></li>
-            </ul>
-        </div>
+      let favicon = document.createElement('link');
+      favicon.rel = 'icon';
+      document.getElementById('snuseImage').src = `../static/images/SNEESE/${fav_num}.png`
+      favicon.href = `../static/images/SNEESE/${fav_num}.png`;
+
+      document.head.appendChild(favicon);
+    </script>
+    <div class="navbar">
+      <div>
+        <nav>
+          <ul>
+            <li><a href="/index">HOME</a></li>
+            <li><a href="/path">PATHING</a></li>
+            <li><a href="/calendar">CALENDAR</a></li>
+            <li><a href="/chat">CHATROOM</a></li>
+          </ul>
+          <div class="hamburger-menu" id="hamburger">&#9776;</div>
+        </nav>
+      </div>
     </div>
-
-    <!-- Content from other templates will be inserted here -->
-    <div class="content-wrapper">{% block content %}{% endblock %}</div>
-
-</body>
-
+    <div class="content-wrapper">{%block content %} {%endblock%}</div>
+    <script>
+      document
+        .querySelector(".hamburger-menu")
+        .addEventListener("click", function () {
+          document.querySelector("nav ul").classList.toggle("show");
+        });
+    </script>
+  </body>
 </html>

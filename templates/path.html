@@ -1,32 +1,31 @@
-{% extends "navbar.html" %}
+{% extends "navbar.html" %} {% block content %}
+<div>Your path is {{path}}</div>
 
-{% block content %}
-    <div>Your path is {{path}}</div>
+<div id="map" style="height: 500px">
+  <img
+    style="width: 100%; z-index: 0; position: absolute; left: 0; top: 0"
+    src="./../static/images/FullMap.png"
+    alt="SNHU Campus" />- {%for image in path_images%}
+  <p>{{image}}</p>
+  <img style="width:100%; z-index: 10; position: absolute; left:0; top:0;"
+  src={{ url_for('static', filename = ''+image) }}> {%endfor%}
+  <div class="image-container" id="image-container">
+    <!-- Images will be dynamically added here -->
+  </div>
+</div>
 
-    <div id="map" style="height: 500px;">
-        <img style="width:100%; z-index: 0; position: absolute; left:0; top:0;" src="./../static/images/FullMap.png"
-            alt="SNHU Campus">-
-            {%for image in path_images%}
-            <p>{{image}}</p>
-            <img style="width:100%; z-index: 10; position: absolute; left:0; top:0;" src={{ url_for('static', filename = ''+image) }}>
-            {%endfor%}
-        <div class="image-container" id="image-container">
-            <!-- Images will be dynamically added here -->
-        </div>
-    </div>
+<script>
+  const imageList = path_images;
 
-    <script>
-        const imageList = path_images;
+  const container = document.getElementById("image-container");
 
-        const container = document.getElementById('image-container');
-
-        imageList.forEach(image => {
-            const img = document.createElement('img');
-            img.src = image;
-            img.alt = 'Image';
-            img.style = "width:100%; z-index: 10; position: absolute; left:0; top:0;"
-            container.appendChild(img);
-        });
-    </script>
+  imageList.forEach((image) => {
+    const img = document.createElement("img");
+    img.src = image;
+    img.alt = "Image";
+    img.style = "width:100%; z-index: 10; position: absolute; left:0; top:0;";
+    container.appendChild(img);
+  });
+</script>
 
 {% endblock %}

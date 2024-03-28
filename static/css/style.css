@@ -143,6 +143,10 @@ body{
     margin-left: 2vw;
     margin-right: 2vw;
     justify-content: space-evenly;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: stretch;
+    flex-wrap: nowrap;
 }
 
 .calendar-day-home{
