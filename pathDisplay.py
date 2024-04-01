@@ -1,12 +1,9 @@
 import os
 
+
 def get_path(path_nodes):
     relevant_images = []
-<<<<<<< HEAD
-    images_folder = './static/MapPieces'
-=======
     images_folder = './static/tempMapStuff'
->>>>>>> main
     for i in range(len(path_nodes) - 1):
         start_node = path_nodes[i]
         end_node = path_nodes[i + 1]
@@ -25,15 +22,11 @@ def get_path(path_nodes):
             backward_path = backward_path.removeprefix('./static/')
             relevant_images.append(backward_path)
         #else:
-            #print(f"Warning: Image not found for path between {start_node} and {end_node}")
-<<<<<<< HEAD
-    return relevant_images
-
-=======
+        #print(f"Warning: Image not found for path between {start_node} and {end_node}")
 
     return relevant_images
 
->>>>>>> main
+
 # Example usage
 path_nodes = [2, 0, 1, 3, 5, 8, 29]
 

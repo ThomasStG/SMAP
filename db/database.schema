@@ -1,5 +1,0 @@
-Messages{
-    id          int             primary key, not null, auto increment
-    created_at  datetime        not null, default CURRENT_TIMESTAMP
-    content     varchar(250)    not null
-}

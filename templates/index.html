@@ -1,4 +1,5 @@
 {% extends "navbar.html" %} {% block content %}
+{% extends "navbar.html" %} {% block content %}
 <div class="home">
     <div class="home-section" style="margin-right:3vw;">
         <h1 class="rainbow">Events Today</h1>
@@ -34,6 +35,7 @@
     </div>
     <div id="food-data" style="display: none">
     </div>
+  </div>
   </div>
 
   <!--{%if food|length == 0 %}
@@ -104,6 +106,42 @@
 
 <p></p>Powered by <a href="https://www.weatherapi.com/" title="Free Weather API">WeatherAPI.com</a></p>
 {% endblock %}
+<!--<div id="loading">
+    <img src="loading.gif" alt="Loading...">
+</div>
+<div id="food-data" style="display: none;">
+     Placeholder for food data
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    fetch("/get_food_data")
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("loading").style.display = "none";
+        const foodDataElement = document.getElementById("food-data");
+        data.forEach(item => {
+            const itemElement = document.createElement("div");
+            itemElement.textContent = item.name + " - " + item.description;
+            foodDataElement.appendChild(itemElement);
+        });
+        foodDataElement.style.display = "block";
+    })
+    .catch(error => {
+        console.error("Error fetching food data:", error);
+    });
+});
+</script
+# in server.py
+    food data ~ 
+    {"name": "Spicy Tater Tot Breakfast Bowl", "description": "Crispy tater tots, bacon, sautéed peppers and onions and shredded cheese. Drizzled with chipotle ranch dressing."},
+    {"name": "Ham and Swiss Panini", "description": ""}
+    @app.route('/get_food_data')
+    def get_food_data():
+        return jsonify(food_data)
+
+-->
+
 <!--<div id="loading">
     <img src="loading.gif" alt="Loading...">
 </div>
