@@ -3,10 +3,7 @@ from dotenv import load_dotenv
 import requests
 
 def GetWeather():
-<<<<<<< HEAD
     # Load environment variables
-=======
->>>>>>> main
     load_dotenv(override=True)
     
     # Retrieve WeatherAPI key from environment variables
@@ -14,7 +11,6 @@ def GetWeather():
     # Check if the API key is available
     if not key:
         print("Weather API key not found.")
-<<<<<<< HEAD
         #return None
     # Define the location for which you want to get weather data (example coordinates)
     latitude = 43.038605
@@ -83,6 +79,4 @@ def GetForecast():
             return None
     except Exception as e:
         print(f"An error occurred: {e}")
-=======
->>>>>>> main
         return None

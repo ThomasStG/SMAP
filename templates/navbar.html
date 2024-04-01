@@ -30,6 +30,11 @@
       favicon.href = `../static/images/SNEESE/${fav_num}.png`;
 
       document.head.appendChild(favicon);
+      document
+        .querySelector(".hamburger-menu")
+        .addEventListener("click", function () {
+          document.querySelector("nav ul").classList.toggle("show");
+        });
     </script>
     <div class="navbar">
       <div>
@@ -38,43 +43,10 @@
             <li><a href="/index">HOME</a></li>
             <li><a href="/path">PATHING</a></li>
             <li><a href="/calendar">CALENDAR</a></li>
-            <li><a href="/chat">CHATROOM</a></li>
           </ul>
           <div class="hamburger-menu" id="hamburger">&#9776;</div>
         </nav>
       </div>
     </div>
     <div class="content-wrapper">{%block content %} {%endblock%}</div>
-    <script>
-      document
-        .querySelector(".hamburger-menu")
-        .addEventListener("click", function () {
-          document.querySelector("nav ul").classList.toggle("show");
-        });
-    </script>
-  </body>
-      document.head.appendChild(favicon);
-    </script>
-    <div class="navbar">
-      <div>
-        <nav>
-          <ul>
-            <li><a href="/index">HOME</a></li>
-            <li><a href="/path">PATHING</a></li>
-            <li><a href="/calendar">CALENDAR</a></li>
-            <li><a href="/chat">CHATROOM</a></li>
-          </ul>
-          <div class="hamburger-menu" id="hamburger">&#9776;</div>
-        </nav>
-      </div>
-    </div>
-    <div class="content-wrapper">{%block content %} {%endblock%}</div>
-    <script>
-      document
-        .querySelector(".hamburger-menu")
-        .addEventListener("click", function () {
-          document.querySelector("nav ul").classList.toggle("show");
-        });
-    </script>
-  </body>
 </html>

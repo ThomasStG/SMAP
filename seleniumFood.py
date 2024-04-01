@@ -4,6 +4,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 
 
 def getFood():
@@ -88,7 +89,7 @@ def getFood():
                     "Icons": icons,
                     "Color": img_src
                 })
-            except stale - element - reference - exception:
+            except StaleElementReferenceException:
                 meal_time = ""
                 station_name = ""
                 recipe_name = ""

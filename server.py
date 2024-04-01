@@ -2,18 +2,13 @@ import os
 import sys
 from flask import Flask, render_template, request, jsonify
 from waitress import serve
-import sqlite3
-import numpy as np
-from datetime import datetime
-
 import numpy as np
 from datetime import datetime
 
 from events import getEvents
 from pathing import Graph
-from pathing import Graph
 from pathDisplay import get_path
-from api.Messages.SendMessage import Send, Delete, Get
+#from api.Messages.SendMessage import Send, Delete, Get
 from seleniumFood import getFood
 
 app = Flask(__name__)
@@ -28,32 +23,6 @@ nodes = np.load(map_file_path).astype(float)
 
 
 buildings = {
-    'Academic Center': 0,
-    'Athletic Center': 1,
-    'Belknap': 2,
-    'Dining Hall': 3,
-    'Gustafson Welcome Center': 4,
-    'Green Center': 5,
-    'Hampton Hall': 6,
-    'Hospitality Center': 7,
-    'Kingston Hall': 8,
-    'Learning Commons': 9,
-    'Lincoln Hall': 10,
-    'Madison House': 11,
-    'Mark A. Ouellette Stadium': 12,
-    'Morrissey House': 13,
-    'Monadnock Hall': 14,
-    'New Castle Hall': 15,
-    'Online': 16,
-    'Other': 17,
-    'Robert A. Freese Student Center': 18,
-    'Robert Frost Hall': 19,
-    'SETA': 20,
-    'Tuckerman Hall': 21,
-    'Washington Hall': 22,
-    'Webster Hall': 23,
-    'William S. and Joan Green Center for Student Success': 24,
-    'Windsor Hall': 25,
     'Academic Center': 0,
     'Athletic Center': 1,
     'Belknap': 2,
@@ -105,20 +74,6 @@ def startApp():
     waitressStart()
 
 
-def flaskStart():
-    app.run(host="0.0.0.0", port=3000, debug=True)
-
-
-def waitressStart():
-    print("http://localhost:3000")
-    serve(app, host="0.0.0.0", port=3000)
-
-
-def startApp():
-    # flaskStart()
-    waitressStart()
-
-
 @app.route('/')
 @app.route('/index')
 def index():
@@ -143,8 +98,6 @@ def index():
                  day_of_month, year, time), event[3])
         if day_of_month == current_date.day and month.lower() == current_date.strftime("%B").lower():
             cal1.append(event)
-
-    return render_template('index.html', calendar=cal1, food=food)
 
     return render_template('index.html', calendar=cal1, food=food)
 
@@ -228,8 +181,8 @@ def handle_data():
         return render_template("pathing.html")
     from_loc = int(from_str)
     to_loc = int(to_str)
-    if from_loc == -1:
-        from_loc = findClosest(get_user_location(), nodes)
+    #if from_loc == -1:
+    #    from_loc = findClosest(get_user_location(), nodes)
     path = campus_map.dijkstra(from_loc, to_loc)
     images = get_path(path)
 
@@ -260,32 +213,7 @@ def get_food_data():
             file.write(f)
         return f
 
-
-@app.route('/get_food_data')
-def get_food_data():
-    today = datetime.today().date()
-    file_path = f"{today}-food.json"
-    if os.path.exists(file_path):
-        with open(file_path, "r") as file:
-            return file.read()
-    else:
-        try:
-            f = getFood()
-        except Exception as e:
-            return f"Error getting food data: {e}"
-
-        # Delete old food files
-        files = os.listdir(".")
-        for file in files:
-            if file.endswith("-food.json"):
-                os.remove(os.path.join(".", file))
-
-        # Write new food data to file
-        with open(file_path, "w") as file:
-            file.write(f)
-        return f
-
-
+"""
 @app.route('/chat')
 def show():
     messages = Get()
@@ -312,7 +240,7 @@ def send():
     if honeypot == "":
         Send(content)
     return show()
-
+"""
 
 
 if __name__ == "__main__":

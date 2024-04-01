@@ -23,8 +23,8 @@ def getEvents(
 
         for event in events:
             event_title = event.find("h2").get_text()
-            event_location = event.find("abbr", class_="dtstart").get_text()
-            event_time = event.find("span", class_="location").get_text()
+            event_time = event.find("abbr", class_="dtstart").get_text()
+            event_location = event.find("span", class_="location").get_text()
             event_description = event.find("span",
                                            class_="description").get_text()
 
@@ -50,7 +50,8 @@ def getEvents(
             # Append the modified event_description to the calendar
             calendar.append((event_title, event_time, event_location,
                              event_description_with_links))
-
+            print(event_time)
+        print(calendar)
         return calendar
     except requests.exceptions.RequestException as e:
         print(f"Error: {e}")
@@ -58,3 +59,5 @@ def getEvents(
     finally:
         if 'response' in locals():
             response.close()
+
+getEvents()

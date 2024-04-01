@@ -6,16 +6,16 @@
 
 # Library for INT_MAX
 import sys
-from geopy.geocoders import Nominatim
-from geopy.distance import geodesic
+#from geopy.geocoders import Nominatim
+#from geopy.distance import geodesic
 import requests
 import numpy as np
 import math as m
-import geocoder
+#import geocoder
 
 import time
 
-
+"""
 def findClosest(loc, nodes):
     distances = np.sqrt(np.sum(np.power(nodes - loc, 2), axis=1))
     closest_node_index = np.argmin(distances)
@@ -31,10 +31,10 @@ def get_user_location():
         #print(data)
         lat, lon = map(float, data['loc'].split(','))
         return lat, lon
-    except:
+    except Exception:
         print("Error: Unable to detect your location.")
         return None, None
-
+"""
 
 class Graph():
 
@@ -42,7 +42,7 @@ class Graph():
         self.V = vertices
         self.graph = [[0 for column in range(vertices)]
                       for row in range(vertices)]
-        self.graph = np.load('map.npy')
+        self.graph = np.load('./static/other/map.npy')
 
     def minDistance(self, dist, sptSet):
         min = sys.maxsize
@@ -100,5 +100,5 @@ if __name__ == "__main__":
     closest = findClosest(loc, nodes)
     print(closest[0], "is the distance from loc to node ", closest[1])
     print(g.dijkstra(closest[1], 169))"""
-    print(get_user_location())
+    #print(get_user_location())
 # display path pieces https://chat.openai.com/share/2150ff02-b9d8-44e6-bde8-209e7dc7ad98
