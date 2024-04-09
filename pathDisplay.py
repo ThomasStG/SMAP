@@ -3,7 +3,7 @@ import os
 
 def get_path(path_nodes):
     relevant_images = []
-    images_folder = './static/tempMapStuff'
+    images_folder = './static/BoldedMap'
     for i in range(len(path_nodes) - 1):
         start_node = path_nodes[i]
         end_node = path_nodes[i + 1]
@@ -21,8 +21,9 @@ def get_path(path_nodes):
         elif os.path.isfile(backward_path):
             backward_path = backward_path.removeprefix('./static/')
             relevant_images.append(backward_path)
-        #else:
-        #print(f"Warning: Image not found for path between {start_node} and {end_node}")
+        else:
+            print(
+                f"Warning: Image not found for path between {start_node} and {end_node}")
 
     return relevant_images
 
@@ -31,6 +32,7 @@ def get_path(path_nodes):
 path_nodes = [2, 0, 1, 3, 5, 8, 29]
 
 relevant_images = get_path(path_nodes)
+print(relevant_images)
 
 # Now you can use relevant_images to display or process the necessary images
-#print("Relevant Images:", relevant_images)
+# print("Relevant Images:", relevant_images)

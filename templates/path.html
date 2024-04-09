@@ -3,12 +3,41 @@
 
 <div id="map" style="height: 500px">
   <img
-    style="width: 100%; z-index: 0; position: absolute; left: 0; top: 0"
-    src="./../static/images/FullMap.png"
-    alt="SNHU Campus" />- {%for image in path_images%}
-  <p>{{image}}</p>
-  <img style="width:100%; z-index: 10; position: absolute; left:0; top:0;"
-  src={{ url_for('static', filename = ''+image) }}> {%endfor%}
+    style="
+      width: 100%;
+      z-index: 0;
+      position: absolute;
+      left: 0;
+      top: 0;
+      margin-top: 4.5rem;
+    "
+    src="./../static/images/Parking.png"
+    alt="SNHU Campus" />
+  <img
+    style="
+      width: 100%;
+      z-index: 0;
+      position: absolute;
+      left: 0;
+      top: 0;
+      margin-top: 4.5rem;
+    "
+    src="./../static/images/Building.png"
+    alt="SNHU Campus" />
+  <img
+    style="
+      width: 100%;
+      z-index: 0;
+      position: absolute;
+      left: 0;
+      top: 0;
+      margin-top: 4.5rem;
+    "
+    src="./../static/images/Paths.png"
+    alt="SNHU Campus" />
+  {%for image in path_images%} <img style="width:100%; z-index: 10; position:
+  absolute; left:0; top:0; margin-top: 4.5rem" src={{ url_for('static', filename
+  = '' + image) }}> {%endfor%}
   <div class="image-container" id="image-container">
     <!-- Images will be dynamically added here -->
   </div>

@@ -19,21 +19,20 @@
         {%endfor%}
         {%if calendar|length == 0%}
             <div style="font-size: max(20%, 50px);
-    text-align: center;color:gold">No Events Today</div>
+              text-align: center;color:gold">No Events Today</div>
         {%endif%}
     </div>
-  </div>
-  <div class="home-section" style="margin-right: 3vw">
-    <h1>Current Weather</h1>
-  </div>
-  <div class="home-section">
-    <h1>Dining Hall Food</h1>
-    <div id="loading">
-      <img src="../static/images/Snoose.gif" alt="loading..." />
+    <div class="home-section" style="margin-right: 3vw">
+      <h1>Current Weather</h1>
     </div>
-    <div id="food-data" style="display: none">
+    <div class="home-section">
+      <h1>Dining Hall Food</h1>
+      <div id="loading">
+        <img src="../static/images/Snoose.gif" alt="loading..." />
+      </div>
+      <div id="food-data" style="display: none">
+      </div>
     </div>
-  </div>
   </div>
 
   <!--{%if food|length == 0 %}
@@ -41,7 +40,6 @@
     No Food Today
   </div>
   {% endif %}-->
-</div>
 
 <script lang="js">
   document.addEventListener("DOMContentLoaded", function () {

@@ -126,18 +126,6 @@ body{
     display: flex;
     justify-content: center;
 }
-
-.home-section{
-    border: 3px solid gold;
-    width:800px;
-    max-width: 100vw;
-    min-height: calc(100vh - 4.5rem);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color:midnightblue;
-    margin-bottom: 2vh;
-}
 .home{
     display: flex;
     margin-left: 2vw;
@@ -145,9 +133,21 @@ body{
     justify-content: space-evenly;
     flex-wrap: wrap;
     flex-direction: row;
-    align-content: stretch;
-    flex-wrap: nowrap;
+
 }
+.home-section{
+    border: 3px solid gold;
+    min-width: 200px;
+    width: 30%;
+    max-width: 100%;
+    min-height: calc(100vh - 4.5rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color:midnightblue;
+    margin-bottom: 2vh;
+}
+
 
 .calendar-day-home{
     margin-top: auto;

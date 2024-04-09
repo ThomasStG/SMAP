@@ -8,7 +8,7 @@ from datetime import datetime
 from events import getEvents
 from pathing import Graph
 from pathDisplay import get_path
-#from api.Messages.SendMessage import Send, Delete, Get
+# from api.Messages.SendMessage import Send, Delete, Get
 from seleniumFood import getFood
 
 app = Flask(__name__)
@@ -169,7 +169,6 @@ def calendar():
                  day_of_month, year, time), event[3])
         cal1.append(event)
 
-
     return render_template("calendar.html", calendar=cal1)
 
 
@@ -181,12 +180,12 @@ def handle_data():
         return render_template("pathing.html")
     from_loc = int(from_str)
     to_loc = int(to_str)
-    #if from_loc == -1:
+    # if from_loc == -1:
     #    from_loc = findClosest(get_user_location(), nodes)
     path = campus_map.dijkstra(from_loc, to_loc)
     images = get_path(path)
 
-    return render_template("path.html", path=path, path_images=images)
+    return render_template("path.html", path_images=images)
 
 
 @app.route('/get_food_data')
@@ -212,6 +211,7 @@ def get_food_data():
         with open(file_path, "w") as file:
             file.write(f)
         return f
+
 
 """
 @app.route('/chat')

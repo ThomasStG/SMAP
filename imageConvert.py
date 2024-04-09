@@ -2,9 +2,11 @@
 from PIL import Image, ImageFilter
 
 import os
+
+
 def removeWhiteBackgrounds():
     folder_path = "./static/images"
-    filename = "CS233.jpg"
+    filename = "CS230-4.jpg"
     file_path = os.path.join(folder_path, filename)
     img = Image.open(file_path)
     img = img.convert("RGBA")
@@ -13,8 +15,10 @@ def removeWhiteBackgrounds():
         for x in range(img.size[0]):
             r, g, b, a = pixdata[x, y]
             if r > 200 and g > 200 and b > 200:
-                pixdata[x, y] = (255, 255, 255, 0)  # Set white pixels to transparent
+                # Set white pixels to transparent
+                pixdata[x, y] = (255, 255, 255, 0)
     img.save(os.path.splitext(file_path)[0] + ".png", "PNG")
+
 
 def convertImage():
     folder_dir = "./static/tempMapStuff/relabeledImages"
@@ -46,9 +50,11 @@ def convertImage():
             new_img = Image.new("RGBA", img.size, (0, 0, 0, 0))
             new_img.paste(img, mask=mask)
 
-            new_img.save(f"./static/tempMapStuff/Converted/{imageName}.png", "PNG")
+            new_img.save(
+                f"./static/tempMapStuff/Converted/{imageName}.png", "PNG")
             img.close()  # Close the original image file
             new_img.close()  # Close the new image file
             print("Successful")
 
-convertImage()
+
+removeWhiteBackgrounds()

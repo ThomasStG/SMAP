@@ -5,16 +5,9 @@
 # for adjacency matrix representation of the graph
 
 # Library for INT_MAX
-import sys
-#from geopy.geocoders import Nominatim
-#from geopy.distance import geodesic
-import requests
-import numpy as np
-import math as m
-#import geocoder
-
-import time
-
+# from geopy.geocoders import Nominatim
+# from geopy.distance import geodesic
+# import geocoder
 """
 def findClosest(loc, nodes):
     distances = np.sqrt(np.sum(np.power(nodes - loc, 2), axis=1))
@@ -36,6 +29,15 @@ def get_user_location():
         return None, None
 """
 
+
+
+
+from pathDisplay import get_path
+import sys
+import requests
+import numpy as np
+import math as m
+import time
 class Graph():
 
     def __init__(self, vertices):
@@ -71,12 +73,12 @@ class Graph():
                     dist[y] = dist[x] + self.graph[x, y]
                     parent[y] = x
 
-        #self.printSolution(dist, parent)
+        # self.printSolution(dist, parent)
         path = self.getPath(src, final, parent)
         time = 0
         for i in range(len(path) - 1):
             time += self.graph[path[i], path[i + 1]]
-        return (path, time)
+        return path
 
     def getPath(self, src, final, parent):
         path = []
@@ -89,6 +91,9 @@ class Graph():
 
 # Driver's code
 if __name__ == "__main__":
+    g = Graph(171)
+    p = g.dijkstra(2, 165)
+    print(get_path(p))
     """g = Graph(171)
     loc = (-71.450127, 43.038479)
     #loc = get_user_location()
@@ -100,5 +105,5 @@ if __name__ == "__main__":
     closest = findClosest(loc, nodes)
     print(closest[0], "is the distance from loc to node ", closest[1])
     print(g.dijkstra(closest[1], 169))"""
-    #print(get_user_location())
+    # print(get_user_location())
 # display path pieces https://chat.openai.com/share/2150ff02-b9d8-44e6-bde8-209e7dc7ad98
