@@ -1,0 +1,199 @@
+    <div class="home-section" style="margin-right:3vw;">
+        <h1>Weather</h1>
+        <div class="calendar-day1">
+                <h1  class="hot-cold">Current Weather</h1> <!-- current weather here-->
+        
+                <div style="font-size: max(10%, 25px);color: rgb(255, 196, 45);">  <b>{{ weather.current.temp_f  }}°F</b><img src ="{{fcast.current.condition.icon}}" alt ="{{fcast.current.condition.text}}"></div> 
+        
+                <div><b>feels like {{weather.current.feelslike_f}}°F</b></div>
+
+
+                <div><b>Current condition is: {{fcast.current.condition.text}}</b></div>  
+                <div><b> {{weather.current.wind_mph}} mph  {{weather.current.wind_dir}}</b></div>
+         
+                <div><b> {{weather.current.humidity}}% humidity</b> </div>
+                <div><b>the uv is: {{weather.current.uv}}</b> </div>
+                
+        </div>
+        <div  class="calendar-day1">
+            <div>
+                <h1 class="hot-cold"> HOURLY</h1>  
+            </div>
+            <b>
+            <div>8 am: {{fcast.forecast.forecastday[0].hour[8].temp_f}} F</div>
+            
+            <div>10 am: {{fcast.forecast.forecastday[0].hour[10].temp_f}} F</div>
+            
+            <div>Noon: {{fcast.forecast.forecastday[0].hour[12].temp_f}} F</div>
+            
+            <div>2 pm: {{fcast.forecast.forecastday[0].hour[14].temp_f}} F</div> 
+
+            <div>4 pm: {{fcast.forecast.forecastday[0].hour[16].temp_f}} F</div>
+
+            <div>6 pm: {{fcast.forecast.forecastday[0].hour[18].temp_f}} F</div>
+
+            <div>8 pm: {{fcast.forecast.forecastday[0].hour[20].temp_f}} F</div>
+            </b>
+        </div>
+        <div class="calendar-day2">
+
+            <div> 
+                <h1 class="hot-cold"> Tomorrow's weather</h1>
+                <div class="calendar-day2">
+                <b>
+                    <div style="display: flex; flex-direction: column;">  
+                        <div style="color:#ff4000;">{{fcast.forecast.forecastday[1].day.maxtemp_f}} </div> 
+                        <div style="color:aqua"> {{fcast.forecast.forecastday[1].day.mintemp_f}} </div>    
+                    </div>
+                    <div><img src ="{{fcast.forecast.forecastday[1].day.condition.icon}}" alt ="{{fcast.forecast.forecastday[1].day.condition.text}}" > </div>
+                    <div>Max wind: {{fcast.forecast.forecastday[1].day.maxwind_mph}} </b></div>
+                </div>
+            </div> 
+        </div>
+
+
+import os
+#from dotenv import load_dotenv
+import requests
+
+def GetWeather():
+    #load_dotenv(override=True)
+    
+    # Retrieve WeatherAPI key from environment variables
+    key = "1a11a7238e6541f2b9b191338241002"#os.getenv("WEATHER_KEY")
+    # Check if the API key is available
+    if not key:
+        print("Weather API key not found.")
+        return None
+    
+    baseUrl = "http://api.weatherapi.com/v1"
+    endpoint = "/current.json"
+
+    url = f"{baseUrl}{endpoint}?key={key}&q=43.040871,-71.457512"
+    try:
+        # Send GET request to the WeatherAPI
+        response = requests.get(url)
+        
+        # Check if the request was successful
+        if response.status_code == 200:
+            # Parse the JSON response
+            weatherdata = response.json()
+            return weatherdata
+        else:
+            print(f"An error has occured {response.status_code}")
+            return None
+    except Exception as e:
+        print(f"an error has occored {e}")
+        return None
+
+def GetForecast():
+
+    #load_dotenv(override=True)
+    
+    # Retrieve WeatherAPI key from environment variables
+
+
+
+
+
+
+    key = "1a11a7238e6541f2b9b191338241002"#os.getenv("WEATHER_KEY")
+
+
+
+
+
+
+
+
+
+    
+    # Check if the API key is available
+    if not key:
+        print("Weather API key not found.")
+        return None
+    
+    baseUrl = "http://api.weatherapi.com/v1"
+    endopoint = "/forecast.json"
+
+#The docs are at https://www.weatherapi.com
+    
+    url = f"{baseUrl}{endopoint}?key={key}&q=43.040871,-71.457512&days=2"
+    try:
+        # Send GET request to the WeatherAPI
+        response = requests.get(url)
+        
+        # Check if the request was successful
+        if response.status_code == 200:
+            # Parse the JSON response
+            weatherdata = response.json()
+            return weatherdata
+        else:
+            print(f"An error has occured {response.status_code}")
+            return None
+    except Exception as e:
+        print(f"an error has occored {e}")
+        return None
+
+print ("weather\n")
+print(GetWeather())
+print("\n") 
+print("forcast\n")
+print(GetForecast())
+
+.calendar-day1{
+    width: 90%;
+    height: 20%;
+    align-items: center;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: #2f2f7e;
+}
+.calendar-day2{
+    width: 90%;
+    height: 20%;
+    align-items: center;
+    margin: 1rem;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #2f2f7e;
+}
+.hot-cold{
+    background: linear-gradient(to right, #ff5100,#01e6ff,#01e6ff, #ff5100);
+    animation: gradient 2s linear infinite;
+    background-size: 200% 100%;
+    animation-fill-mode: forwards;
+    background-clip: text;
+    color: transparent;
+}
+
+
+@app.route('/')
+@app.route('/index')
+def index():
+    #weather section-----------
+    weather = GetWeather()
+    forcast = GetForecast()
+
+    #end weather --------------
+    calendar = getEvents()
+    format_str = "%A, %B %d, %Y, %I:%M %p"
+    cal1 = []
+    current_date = datetime.now()
+    # Parse the datetime string using the defined format
+    for event in calendar:
+        parsed_datetime = datetime.strptime(event[2], format_str)
+
+        # Extract individual components
+        day_of_week = parsed_datetime.strftime("%A")
+        month = parsed_datetime.strftime("%B")
+        day_of_month = parsed_datetime.day
+        year = parsed_datetime.year
+        time = parsed_datetime.strftime("%I:%M %p")
+        event = (event[0],event[1], (day_of_week, month, day_of_month, year, time), event[3])
+        if day_of_month == current_date.day and month.lower() == current_date.strftime("%B").lower():
+            cal1.append(event)
+        
+    return render_template('index.html', calendar=cal1, weather = weather, fcast = forcast)
