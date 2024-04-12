@@ -77,9 +77,14 @@ def startApp():
 @app.route('/')
 @app.route('/index')
 def index():
-    # print(weather, forecast)
+    #weather section-----------
+    weather = GetWeather()
+    forcast = GetForecast()
+
+    #end weather --------------
     food = getFood()
     calendar = getEvents()
+    
     format_str = "%A, %B %d, %Y, %I:%M %p"
     cal1 = []
     current_date = datetime.now()
@@ -99,8 +104,7 @@ def index():
         if day_of_month == current_date.day and month.lower() == current_date.strftime("%B").lower():
             cal1.append(event)
 
-    return render_template('index.html', calendar=cal1, food=food)
-
+    return render_template('index.html', calendar=cal1, food=food, weather = weather, fcast = forcast)
 
 @app.route('/events')
 def events():
