@@ -1,32 +1,28 @@
-{% extends "navbar.html" %} {% block content %}
+{% extends "navbar.html" %} 
+{% block content %}
+<head>
+    <style>
+      #searchDropdown, #searchInput {
+        font-size: 18px;
+        font-family: Arial, sans-serif;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 6px 10px;
+        margin: 8px 0;
+        box-sizing: border-box;
+      }
+    </style>
+  </head>
 <div id="calendar" class="calendar">
-  <select id="searchDropdown" name="searchDropdown" style="width: 52ch">
-    <option>Select Search Method</option>
-    <option value="0">By Title</option>
-    <option value="1">By Description</option>
-    <option value="2">By Date and Time</option>
-    <option value="3">By Location</option>
-  </select>
-  <input
-    type="text"
-    id="titleInput"
-    style="display: none"
-    placeholder="Search by title..." />
-  <input
-    type="text"
-    id="locInput"
-    style="display: none"
-    placeholder="Search by location..." />
-  <input
-    type="text"
-    id="desInput"
-    style="display: none"
-    placeholder="Search by description..." />
-  <input
-    type="text"
-    id="dateInput"
-    style="display: none"
-    placeholder="Search by date or time..." />
+  <div style="display: flex; justify-content: space-between;">
+    <select id="searchDropdown" name="searchDropdown" style="width: 16%;">
+      <option value="0" selected>By Title</option>
+      <option value="1">By Description</option>
+      <option value="2">By Date and Time</option>
+      <option value="3">By Location</option>
+    </select>
+    <input type="text" id="searchInput" style="width: 83%;" placeholder="Search by title..." />
+  </div>
   {% for item in calendar %}
   <div class="calendar-element">
     <div class="calendar-day">
@@ -38,115 +34,66 @@
       </p>
       <p class="calendar-title">{{ item[0] }}</p>
       <p class="calendar-location">{{item[1]}}</p>
+      <p class="calendar-description">{{item[3]}}</p> 
+      
+
     </div>
   </div>
   {% endfor %}
 </div>
-<!--Search functionality including dropdown to manage type of search. changing dropdown clears search and resets elements-->
 <script>
-  document.getElementById("titleInput").addEventListener("input", function () {
-      var filter, elements, title, titleTxt, i;
-      filter = document.getElementById('titleInput').value.toUpperCase();
-      elements = document.getElementById("calendar").getElementsByClassName('calendar-element');
-      for (i = 0; i < elements.length; i++) {
-          title = elements[i].getElementsByClassName("calendar-title")[0];
-          if (title) {
-              titleTxt = title.textContent || title.innerText;
-              if (titleTxt.toUpperCase().indexOf(filter) > -1) {
-                  elements[i].style.display = "";
-              } else {
-                  elements[i].style.display = "none";
-              }
-          }
-      }
-  document.getElementById("locInput").addEventListener("input",function (){
-      var filter, elements, location, locationTxt, i;
-      filter=document.getElementById('locInput').value.toUpperCase();
-      elements=document.getElementById('calendar').getElementsByClassName('calendar-element');
-      for(i = 0; i < elements.length; i++){
-          location=elements[i].getElementsByClassName('calendar-location')[0];
-          if (location){
-              locationTxt = location.textContent || location.innerText;
-              if(locationTxt.toUpperCase().indexOf(filter) > -1){
-                  elements[i].style.display="";
-              }
-              else elements[i].style.display = "none";
-          }
-      }
-  });
-  document.getElementById("desInput").addEventListener("input", function () {
-      var filter, elements, description, descriptionTxt, i;
-      filter = document.getElementById('desInput').value.toUpperCase();
-      elements = document.getElementById('calendar').getElementsByClassName('calendar-element');
-      for (i = 0; i < elements.length; i++) {
-          description = elements[i].getElementsByClassName("calendar-description")[0];
-          if (location) {
-              descriptionTxt = description.textContent || description.innerText;
-              if (descriptionTxt.toUpperCase().indexOf(filter) > -1) {
-                  elements[i].style.display = "";
-              }
-              else elements[i].style.display = "none";
-          }
-      }
-  });
-  document.getElementById("dateInput").addEventListener("input", function () {
-      var filter, elements, date, i;
-      filter = document.getElementById('dateInput').value.toUpperCase();
-      elements = document.getElementById('calendar').getElementsByClassName('calendar-element');
-      for (i = 0; i < elements.length; i++) {
-          date = elements[i].getElementsByClassName("calendar-time")[0];
-          if (date) {
-              dateTxt = date.textContent || date.innerText;
-              if (dateTxt.toUpperCase().indexOf(filter) > -1) {
-                  elements[i].style.display = "";
-              }
-              else elements[i].style.display = "none";
-          }
-      }
-  });
-  document.getElementById("searchDropdown").addEventListener("change", function (){
-      var titleInput, locInput, desInput, dateInput;
-      titleInput = document.getElementById("titleInput");
-      locInput = document.getElementById("locInput");
-      desInput = document.getElementById("desInput");
-      dateInput = document.getElementById("dateInput");
-      var elements = document.getElementsByClassName('calendar-element');
-      for (var i = 0; i < elements.length; i++) {
+  document.getElementById("searchInput").addEventListener("input", function (){
+    var filter, elements, text, i;
+    var searchMethod = document.getElementById("searchDropdown").value;
+    var className;
+
+    switch (searchMethod) {
+      case '0':
+        className = "calendar-title";
+        break;
+      case '1':
+        className = "calendar-description";
+        break;
+      case '2':
+        className = "calendar-time";
+        break;
+      case '3':
+        className = "calendar-location";
+        break;
+    }
+
+    filter = document.getElementById('searchInput').value.toUpperCase();
+    elements = document.getElementById("calendar").getElementsByClassName('calendar-element');
+
+    for (i = 0; i < elements.length; i++) {
+      text = elements[i].getElementsByClassName(className)[0];
+      if (text) {
+        text = text.textContent || text.innerText;
+        if (text.toUpperCase().indexOf(filter) > -1) {
           elements[i].style.display = "";
+        } else {
+          elements[i].style.display = "none";
+        }
       }
-      switch (this.value) {
-          case '0':
-              document.getElementById('dateInput').value = "";
-              titleInput.style.display = "";
-              locInput.style.display = "none";
-              desInput.style.display = "none";
-              dateInput.style.display = "none";
-              break;
-          case '3':
-              titleInput.style.display = "none";
-              locInput.style.display = "";
-              desInput.style.display = "none";
-              dateInput.style.display = "none";
-              break;
-          case '1':
-              titleInput.style.display = "none";
-              locInput.style.display = "none";
-              desInput.style.display = "";
-              dateInput.style.display = "none";
-              break;
-          case '2':
-              titleInput.style.display = "none";
-              locInput.style.display = "none";
-              desInput.style.display = "none";
-              dateInput.style.display = "";
-              break;
-          default:
-              titleInput.style.display = "none";
-              locInput.style.display = "none";
-              desInput.style.display = "none";
-              dateInput.style.display = "none";
-      }
+    }
+  });
+
+  document.getElementById("searchDropdown").addEventListener("change", function (){
+    var searchInput = document.getElementById("searchInput");
+    switch (this.value) {
+      case '0':
+        searchInput.placeholder = "Search by title...";
+        break;
+      case '1':
+        searchInput.placeholder = "Search by description...";
+        break;
+      case '2':
+        searchInput.placeholder = "Search by date or time...";
+        break;
+      case '3':
+        searchInput.placeholder = "Search by location...";
+        break;
+    }
   });
 </script>
-
 {% endblock %}
