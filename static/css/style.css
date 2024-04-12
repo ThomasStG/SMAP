@@ -66,6 +66,7 @@ h1{
     margin-left: 3vh;
     margin-right: 3vh;
 }
+
 .calendar-location{
     font-size: max(4%, 18px);
     margin-bottom: 1rem;
@@ -138,6 +139,7 @@ body{
     background-color:midnightblue;
     margin-bottom: 2vh;
 }
+
 .home{
     display: flex;
     margin-left: 2vw;
@@ -156,6 +158,25 @@ body{
 
 .calendar-element-home{
     width: 95%;
+    margin: 1rem;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #2f2f7e;
+}
+.calendar-day1{
+    width: 90%;
+    height: 20%;
+    align-items: center;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: #2f2f7e;
+}
+.calendar-day2{
+    width: 90%;
+    height: 20%;
+    align-items: center;
     margin: 1rem;
     display: flex;
     justify-content: space-evenly;
@@ -185,4 +206,21 @@ body{
     justify-content: space-evenly;
     align-items: center;
     width: 70%;
+}
+
+.rainbow {
+    background: linear-gradient(to right, #FF0000, #FFA500, #FFFF00, #00FF00, #4f4f9e, #6f5bac, #9327e0, #EE82EE, #FF0000);
+    animation: gradient 2s linear infinite;
+    background-size: 200% 100%;
+    animation-fill-mode: forwards;
+    background-clip: text;
+    color: transparent;
+}
+.hot-cold{
+    background: linear-gradient(to right, #ff5100,#01e6ff,#01e6ff, #ff5100);
+    animation: gradient 2s linear infinite;
+    background-size: 200% 100%;
+    animation-fill-mode: forwards;
+    background-clip: text;
+    color: transparent;
 }
