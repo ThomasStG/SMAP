@@ -42,13 +42,12 @@ print(unique_warnings)
 'Warning: Image not found for path between 162 and 165\n', 
 'Warning: Image not found for path between 32 and 33\n', 
 'Warning: Image not found for path between 66 and 72\n', 
-
 'Warning: Image not found for path between 97 and 85\n', 
 'Warning: Image not found for path between 130 and 112\n',
 'Warning: Image not found for path between 21 and 33\n', 
 'Warning: Image not found for path between 22 and 35\n',
-'Warning: Image not found for path between 102 and 90\n'}
 
+'Warning: Image not found for path between 102 and 90\n'}
 'Warning: Image not found for path between 103 and 118\n',
 
 Add ".3 mi to SETA Annex"

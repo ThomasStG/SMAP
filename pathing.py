@@ -72,7 +72,7 @@ class Graph():
 # Driver's code
 if __name__ == "__main__":
     g = Graph(171)
-    p = g.dijkstra(2, 165)
+    p = g.dijkstra(78, 0)
     print(get_path(p))
     """g = Graph(171)
     loc = (-71.450127, 43.038479)
