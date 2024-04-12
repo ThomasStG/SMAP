@@ -30,7 +30,7 @@ print(unique_warnings)
 'Warning: Image not found for path between 33 and 31\n', 
 'Warning: Image not found for path between 85 and 98\n', 
 'Warning: Image not found for path between 52 and 41\n', 
-'Warning: Image not found for path between 103 and 118\n', 
+
 'Warning: Image not found for path between 41 and 26\n', 
 'Warning: Image not found for path between 62 and 69\n', 
 'Warning: Image not found for path between 48 and 62\n', 
@@ -42,26 +42,14 @@ print(unique_warnings)
 'Warning: Image not found for path between 162 and 165\n', 
 'Warning: Image not found for path between 32 and 33\n', 
 'Warning: Image not found for path between 66 and 72\n', 
+
 'Warning: Image not found for path between 97 and 85\n', 
 'Warning: Image not found for path between 130 and 112\n',
 'Warning: Image not found for path between 21 and 33\n', 
 'Warning: Image not found for path between 22 and 35\n',
 'Warning: Image not found for path between 102 and 90\n'}
 
-fix 11-52
-fix 105-120
-fix 124 and up for extra dot
-121-132,
-120-131, 
-116-121, 
-116-120, 
-112-129, 
-108-126, 
-108-125, 
-108-124, 
-105-121, 
-105-120,
-99-100, 
-68-76
+'Warning: Image not found for path between 103 and 118\n',
+
 Add ".3 mi to SETA Annex"
 """

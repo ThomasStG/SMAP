@@ -8,26 +8,6 @@
 # from geopy.geocoders import Nominatim
 # from geopy.distance import geodesic
 # import geocoder
-"""
-def findClosest(loc, nodes):
-    distances = np.sqrt(np.sum(np.power(nodes - loc, 2), axis=1))
-    closest_node_index = np.argmin(distances)
-    return closest_node_index
-
-
-def get_user_location():
-    g = geocoder.ip('me')
-    #print(g.latlng)
-    try:
-        response = requests.get('https://ipinfo.io')
-        data = response.json()
-        #print(data)
-        lat, lon = map(float, data['loc'].split(','))
-        return lat, lon
-    except Exception:
-        print("Error: Unable to detect your location.")
-        return None, None
-"""
 
 
 
