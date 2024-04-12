@@ -1,30 +1,21 @@
 import os
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 import requests
 
 def GetWeather():
-    # Load environment variables
-    load_dotenv(override=True)
+    #load_dotenv(override=True)
     
     # Retrieve WeatherAPI key from environment variables
-    key = os.getenv("WEATHER_KEY")
+    key = "1a11a7238e6541f2b9b191338241002"#os.getenv("WEATHER_KEY")
     # Check if the API key is available
     if not key:
         print("Weather API key not found.")
-        #return None
-    # Define the location for which you want to get weather data (example coordinates)
-    latitude = 43.038605
-    longitude = -71.452469
+        return None
     
-    # Define the base URL for the WeatherAPI
-    base_url = "http://api.weatherapi.com/v1"
-    
-    # Specify the endpoint for the current weather
+    baseUrl = "http://api.weatherapi.com/v1"
     endpoint = "/current.json"
-    
-    # Construct the complete URL
-    url = f"{base_url}{endpoint}?key={key}&q=43.038611,-71.452472"
-    
+
+    url = f"{baseUrl}{endpoint}?key={key}&q=43.040871,-71.457512"
     try:
         # Send GET request to the WeatherAPI
         response = requests.get(url)
@@ -32,39 +23,48 @@ def GetWeather():
         # Check if the request was successful
         if response.status_code == 200:
             # Parse the JSON response
-            weather_data = response.json()
-            return weather_data
+            weatherdata = response.json()
+            return weatherdata
         else:
-            print(f"Failed to fetch weather data. Status code: {response.status_code}")
+            print(f"An error has occured {response.status_code}")
             return None
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print(f"an error has occored {e}")
         return None
 
 def GetForecast():
-    endpoint = "/forecast.json"
-    # Load environment variables
-    load_dotenv(override=True)
+
+    #load_dotenv(override=True)
     
     # Retrieve WeatherAPI key from environment variables
-    key = os.getenv("WEATHER_KEY")
+
+
+
+
+
+
+    key = "1a11a7238e6541f2b9b191338241002"#os.getenv("WEATHER_KEY")
+
+
+
+
+
+
+
+
+
     
     # Check if the API key is available
     if not key:
         print("Weather API key not found.")
         return None
     
-    # Define the location for which you want to get weather data (example coordinates)
-    latitude = 43.038605
-    longitude = -71.452469
+    baseUrl = "http://api.weatherapi.com/v1"
+    endopoint = "/forecast.json"
+
+#The docs are at https://www.weatherapi.com
     
-    # Define the base URL for the WeatherAPI
-    base_url = "http://api.weatherapi.com/v1"
-    
-    # Specify the endpoint for the current weather
-    days = 2
-    # Construct the complete URL
-    url = f"{base_url}{endpoint}?key={key}&q={latitude},{longitude}&days={days}"
+    url = f"{baseUrl}{endopoint}?key={key}&q=43.040871,-71.457512&days=2"
     try:
         # Send GET request to the WeatherAPI
         response = requests.get(url)
@@ -72,11 +72,17 @@ def GetForecast():
         # Check if the request was successful
         if response.status_code == 200:
             # Parse the JSON response
-            weather_data = response.json()
-            return weather_data
+            weatherdata = response.json()
+            return weatherdata
         else:
-            print(f"Failed to fetch weather data. Status code: {response.status_code}")
+            print(f"An error has occured {response.status_code}")
             return None
     except Exception as e:
-        print(f"An error occurred: {e}")
+        print(f"an error has occored {e}")
         return None
+
+print ("weather\n")
+print(GetWeather())
+print("\n") 
+print("forcast\n")
+print(GetForecast())
