@@ -1,30 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-    
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>S-MAPS MORE LIKE S-FACTS</title>
-    <link rel="icon" type="image/snhuse" href="../static/images/snhuseV2.ico">
-    <link rel="stylesheet" href="../static/css/style.css">
-</head>
+    <link rel="icon" type="image/snhuse" href="../static/images/snhuseV2.ico" />
+    <link rel="stylesheet" href="../static/css/style.css" />
+  </head>
 
-<body id="body">
-    <div id="navbar" class="navbar">
-        <div>
-            <ul>
-                <li><a href="/">HOME</a></li>
-                <li><a href="/events">EVENTS</a></li>
-                <li><a href="/paths">PATH</a></li>
-                <li><a href="/calendar">CALENDAR</a></li>
-            </ul>
-        </div>
+  <body>
+    <img src="" id="snuseImage" alt="SMAP Icon" class="icon" />
+    <div class="navbar">
+      <div>
+        <nav>
+          <ul>
+            <li><a href="/index">HOME</a></li>
+            <li><a href="/path">PATHING</a></li>
+            <li><a href="/calendar">CALENDAR</a></li>
+            <li><a href="/interiors">INTERIORS</a></li>
+          </ul>
+          <div class="hamburger-menu" id="hamburger-menu">&#9776;</div>
+        </nav>
+      </div>
     </div>
-
-    <!-- Content from other templates will be inserted here -->
     <div class="content-wrapper">{% block content %}{% endblock %}</div>
 
-</body>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        let fav_num = Math.floor(Math.random() * 10);
+        let favicon = document.createElement("link");
+        favicon.rel = "icon";
+        favicon.href = `../static/images/SNEESE/${fav_num}.png`;
+        document.head.appendChild(favicon);
+        document.getElementById(
+          "snuseImage"
+        ).src = `../static/images/SNEESE/${fav_num}.png`;
 
+        document
+          .querySelector(".hamburger-menu")
+          .addEventListener("click", function () {
+            document.querySelector("nav ul").classList.toggle("show");
+          });
+
+        document.addEventListener("focusout", function (event) {
+          const menu = document.querySelector("nav ul");
+          if (!menu.contains(event.relatedTarget)) {
+            menu.classList.remove("show");
+          }
+        });
+      });
+    </script>
+  </body>
 </html>

@@ -14,6 +14,9 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    display: none;
+    transition: all 0.3s ease-in-out;
+    border-top: 1px solid #fff;
 }
 
 li {
@@ -32,7 +35,9 @@ li a {
 li a:hover {
     background-color: grey;
 }
-
+.show {
+    display: block;
+}
 h1{
     margin: 1rem
 }
@@ -223,4 +228,24 @@ body{
     animation-fill-mode: forwards;
     background-clip: text;
     color: transparent;
+}
+
+.hamburger-menu{
+    position:fixed;
+    left: 3.2rem;
+    top: 1rem;
+    cursor: pointer;
+}
+.icon{
+    height: 2.8rem;
+    width: auto;
+    position:fixed;
+    top: 0.2rem;
+    left: 0.2rem;
+    z-index: 30;
+}
+.interior-map{
+    
+    height:60vh;
+    width: auto;
 }
