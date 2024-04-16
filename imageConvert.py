@@ -1,13 +1,13 @@
+from PIL import Image, ImageFilter
 
 from PIL import Image, ImageFilter
 
 import os
 
 
-def removeWhiteBackgrounds():
-    folder_path = "./static/images"
-    filename = "CS230-4.jpg"
-    file_path = os.path.join(folder_path, filename)
+def convert1(image):
+    folder_path = "./tempMapStuff/"
+    file_path = f"{folder_path}{image}"
     img = Image.open(file_path)
     img = img.convert("RGBA")
     pixdata = img.load()
@@ -17,7 +17,24 @@ def removeWhiteBackgrounds():
             if r > 200 and g > 200 and b > 200:
                 # Set white pixels to transparent
                 pixdata[x, y] = (255, 255, 255, 0)
-    img.save(os.path.splitext(file_path)[0] + ".png", "PNG")
+    img.save("./" + image[:-4] + ".png", "PNG")
+
+
+def removeWhiteBackgrounds():
+    folder_path = "./tempMapStuff/"
+
+    for image in os.listdir(folder_path):
+        file_path = f"{folder_path}{image}"
+        img = Image.open(file_path)
+        img = img.convert("RGBA")
+        pixdata = img.load()
+        for y in range(img.size[1]):
+            for x in range(img.size[0]):
+                r, g, b, a = pixdata[x, y]
+                if r > 200 and g > 200 and b > 200:
+                    # Set white pixels to transparent
+                    pixdata[x, y] = (255, 255, 255, 0)
+        img.save("./static/MapPieces/" + image[-3] + ".png", "PNG")
 
 
 def convertImage():
@@ -50,11 +67,13 @@ def convertImage():
             new_img = Image.new("RGBA", img.size, (0, 0, 0, 0))
             new_img.paste(img, mask=mask)
 
-            new_img.save(
-                f"./static/tempMapStuff/Converted/{imageName}.png", "PNG")
+            new_img.save(f"./static/tempMapStuff/Converted/{imageName}.png",
+                         "PNG")
+            new_img.save(f"./static/tempMapStuff/Converted/{imageName}.png",
+                         "PNG")
             img.close()  # Close the original image file
             new_img.close()  # Close the new image file
             print("Successful")
 
 
-removeWhiteBackgrounds()
+convertImage()

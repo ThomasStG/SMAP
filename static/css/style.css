@@ -14,6 +14,9 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    display: none;
+    transition: all 0.3s ease-in-out;
+    border-top: 1px solid #fff;
 }
 
 li {
@@ -32,7 +35,9 @@ li a {
 li a:hover {
     background-color: grey;
 }
-
+.show {
+    display: block;
+}
 h1{
     margin: 1rem
 }
@@ -66,6 +71,7 @@ h1{
     margin-left: 3vh;
     margin-right: 3vh;
 }
+
 .calendar-location{
     font-size: max(4%, 18px);
     margin-bottom: 1rem;
@@ -148,6 +154,12 @@ body{
     margin-bottom: 2vh;
 }
 
+.home{
+    display: flex;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    justify-content: space-evenly;
+}
 
 .calendar-day-home{
     margin-top: auto;
@@ -160,6 +172,25 @@ body{
 
 .calendar-element-home{
     width: 95%;
+    margin: 1rem;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #2f2f7e;
+}
+.calendar-day1{
+    width: 90%;
+    height: 20%;
+    align-items: center;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: #2f2f7e;
+}
+.calendar-day2{
+    width: 90%;
+    height: 20%;
+    align-items: center;
     margin: 1rem;
     display: flex;
     justify-content: space-evenly;
@@ -224,3 +255,23 @@ body{
     animation-fill-mode: forwards;
     background-clip: text;
     color: transparent;
+}
+.icon{
+    height: 2.8rem;
+    width: auto;
+    position:fixed;
+    top: 0.2rem;
+    left: 0.2rem;
+    z-index: 30;
+}
+.interior-map{
+    
+    height:60vh;
+    width: auto;
+}
+.hamburger-menu{
+    position:fixed;
+    left: 3.2rem;
+    top: 1rem;
+    cursor: pointer;
+}

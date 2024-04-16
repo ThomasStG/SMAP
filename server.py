@@ -1,6 +1,9 @@
 import os
 import sys
 from flask import Flask, render_template, request, jsonify
+import os
+import sys
+from flask import Flask, render_template, request, jsonify
 from waitress import serve
 import numpy as np
 from datetime import datetime
@@ -10,11 +13,18 @@ from pathing import Graph
 from pathDisplay import get_path
 # from api.Messages.SendMessage import Send, Delete, Get
 from seleniumFood import getFood
+from weather import GetWeather, GetForecast
 
 app = Flask(__name__)
 # app.debug = True
+# app.debug = True
 
 campus_map = Graph(171)
+current_file_path = os.path.abspath(__file__)
+current_directory = os.path.dirname(current_file_path)
+map_file_path = os.path.join(
+    current_directory, '.', 'static', 'other', 'coordinates.npy')
+nodes = np.load(map_file_path).astype(float)
 current_file_path = os.path.abspath(__file__)
 current_directory = os.path.dirname(current_file_path)
 map_file_path = os.path.join(
@@ -30,13 +40,19 @@ buildings = {
     'Gustafson Welcome Center': 4,
     'Green Center': 5,
     'Hampton Hall': 6,
+    'Hampton Hall': 6,
     'Hospitality Center': 7,
     'Kingston Hall': 8,
     'Learning Commons': 9,
     'Lincoln Hall': 10,
     'Madison House': 11,
     'Mark A. Ouellette Stadium': 12,
+    'Lincoln Hall': 10,
+    'Madison House': 11,
+    'Mark A. Ouellette Stadium': 12,
     'Morrissey House': 13,
+    'Monadnock Hall': 14,
+    'New Castle Hall': 15,
     'Monadnock Hall': 14,
     'New Castle Hall': 15,
     'Online': 16,
@@ -45,20 +61,12 @@ buildings = {
     'Robert Frost Hall': 19,
     'SETA': 20,
     'Tuckerman Hall': 21,
+    'Tuckerman Hall': 21,
     'Washington Hall': 22,
     'Webster Hall': 23,
     'William S. and Joan Green Center for Student Success': 24,
     'Windsor Hall': 25,
 }
-"""
-    This Python function retrieves events from a calendar, parses their datetime strings, extracts
-    individual components, and filters events based on the current date and month before rendering them
-    in a template.
-    :return: The `index` function is returning a rendered template called 'index.html' with a filtered
-    list of events for the current day and month. The filtered list is stored in the variable `cal1` and
-    passed to the template as `calendar`.
-    """
-
 
 def flaskStart():
     app.run(host="0.0.0.0", port=3000, debug=True)
@@ -69,9 +77,12 @@ def waitressStart():
     serve(app, host="0.0.0.0", port=3000)
 
 
-def startApp():
-    # flaskStart()
-    waitressStart()
+def startApp(mode=0):
+    if mode == 0:
+        waitressStart()
+    else:
+        flaskStart()
+
 
 
 @app.route('/')
@@ -82,7 +93,6 @@ def index():
     forcast = GetForecast()
 
     #end weather --------------
-    food = getFood()
     calendar = getEvents()
     
     format_str = "%A, %B %d, %Y, %I:%M %p"
@@ -103,8 +113,8 @@ def index():
                  day_of_month, year, time), event[3])
         if day_of_month == current_date.day and month.lower() == current_date.strftime("%B").lower():
             cal1.append(event)
-
-    return render_template('index.html', calendar=cal1, food=food, weather = weather, fcast = forcast)
+        
+    return render_template('index.html', calendar=cal1, weather = weather, fcast = forcast)
 
 @app.route('/events')
 def events():
@@ -142,16 +152,13 @@ def events():
         else:
             print("Invalid event format:", event)
 
-    return render_template("events.html",
-                           title="SNHU",
-                           calendar=calendar,
-                           eventCount=eventCount)
+    return render_template("events.html", title="SNHU", calendar=calendar, eventCount=eventCount)
+
 
 
 @app.route("/path")
 def paths():
     return render_template("pathing.html")
-
 
 @app.route("/calendar")
 def calendar():
@@ -169,9 +176,9 @@ def calendar():
         day_of_month = parsed_datetime.day
         year = parsed_datetime.year
         time = parsed_datetime.strftime("%I:%M %p")
-        event = (event[0], event[1], (day_of_week, month,
-                 day_of_month, year, time), event[3])
+        event = (event[0], event[1], (day_of_week, month, day_of_month, year, time), event[3])
         cal1.append(event)
+
 
     return render_template("calendar.html", calendar=cal1)
 
@@ -188,6 +195,8 @@ def handle_data():
     #    from_loc = findClosest(get_user_location(), nodes)
     path = campus_map.dijkstra(from_loc, to_loc)
     images = get_path(path)
+    if "BoldedMap/162-165.png" in images:
+        images.append("BoldedMap/162-165_txt.png")
 
     return render_template("path.html", path_images=images)
 
@@ -216,36 +225,13 @@ def get_food_data():
             file.write(f)
         return f
 
-
-"""
-@app.route('/chat')
-def show():
-    messages = Get()
-    mes = []
-    for message in messages:
-        data = datetime.fromisoformat(message[1])
-        delta = datetime.now() - data
-        if delta.days <= 100:
-            year = data.year
-            month = data.month
-            day = data.day
-            time = f"{data.hour}:{data.minute}:{data.second}:{data.microsecond}"
-            mes.append((message[0], message[2], (year, month, day, time)))
-
-    return render_template("messages.html", messages=mes)
-
-
-@app.route('/sendMessage', methods=["POST", "GET"])
-def send():
-    if request.method != "POST":
-        return show()
-    content = request.form['messageContent']
-    honeypot = request.form['bot_test']
-    if honeypot == "":
-        Send(content)
-    return show()
-"""
+@app.route('/interiors')
+def interiors():
+    images = os.listdir("./static/images/interiors")
+    return render_template("interiorMap.html", images=images)
 
 
 if __name__ == "__main__":
+    startApp()
+
     startApp()

@@ -1,0 +1,14 @@
+{% extends "navbar.html" %} {% block content %}
+
+<div style="justify-content: center">
+  <div
+    style="display: flex; flex-direction: column; height=60vh; align-items:center;">
+    {% for image in images %}
+
+    <img src="../static/images/interiors/{{ image }}" class="interior-map" />
+    <p style="align-text: center; color: black">{{image[:-4]}}</p>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

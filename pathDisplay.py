@@ -4,6 +4,7 @@ import os
 def get_path(path_nodes):
     relevant_images = []
     images_folder = './static/BoldedMap'
+    images_folder = './static/BoldedMap'
     for i in range(len(path_nodes) - 1):
         start_node = path_nodes[i]
         end_node = path_nodes[i + 1]
@@ -23,7 +24,8 @@ def get_path(path_nodes):
             relevant_images.append(backward_path)
         else:
             print(
-                f"Warning: Image not found for path between {start_node} and {end_node}")
+                f"Warning: Image not found for path between {start_node} and {end_node}"
+            )
 
     return relevant_images
 

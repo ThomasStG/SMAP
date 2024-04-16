@@ -9,15 +9,15 @@
 # from geopy.distance import geodesic
 # import geocoder
 
-
-
-
 from pathDisplay import get_path
 import sys
 import requests
 import numpy as np
 import math as m
+
 import time
+
+
 class Graph():
 
     def __init__(self, vertices):
