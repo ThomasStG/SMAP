@@ -1,9 +1,6 @@
 import os
 import sys
 from flask import Flask, render_template, request, jsonify
-import os
-import sys
-from flask import Flask, render_template, request, jsonify
 from waitress import serve
 import numpy as np
 from datetime import datetime
@@ -11,20 +8,13 @@ from datetime import datetime
 from events import getEvents
 from pathing import Graph
 from pathDisplay import get_path
-# from api.Messages.SendMessage import Send, Delete, Get
 from seleniumFood import getFood
 from weather import GetWeather, GetForecast
 
 app = Flask(__name__)
 # app.debug = True
-# app.debug = True
 
 campus_map = Graph(171)
-current_file_path = os.path.abspath(__file__)
-current_directory = os.path.dirname(current_file_path)
-map_file_path = os.path.join(
-    current_directory, '.', 'static', 'other', 'coordinates.npy')
-nodes = np.load(map_file_path).astype(float)
 current_file_path = os.path.abspath(__file__)
 current_directory = os.path.dirname(current_file_path)
 map_file_path = os.path.join(
@@ -232,6 +222,4 @@ def interiors():
 
 
 if __name__ == "__main__":
-    startApp()
-
     startApp()

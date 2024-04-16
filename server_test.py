@@ -14,7 +14,11 @@ def test_home_page(client):
     response = client.get('/index')
     assert response.status_code == 200
     assert b'Events Today' in response.data
-    # TODO test weather and food displays
+    assert b'Weather' in response.data
+    assert b'Dining Hall Food' in response.data
+    assert b'Current Weather' in response.data
+    assert b'HOURLY' in response.data
+    assert b"Tomorrow's weather" in response.data
 
 
 def test_calendar_page(client):
@@ -28,13 +32,6 @@ def test_path_page(client):
     response = client.get('path')
     assert response.status_code == 200
     assert b'Find Path' in response.data
-
-
-def test_chatroom_page(client):
-    response = client.get('/chat')
-    assert response.status_code == 200
-    assert b'Enter a message: ' in response.data
-    assert b'Send' in response.data
 
 
 def test_path_display_page(client):

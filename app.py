@@ -2,7 +2,7 @@
 import subprocess
 import sys
 import os
-from server import startApp
+
 
 if len(sys.argv) > 1:
     if sys.argv[1] == "i" or sys.argv[1] == "install" or sys.argv[1] == "get":
@@ -19,10 +19,13 @@ if len(sys.argv) > 1:
         ],
                        check=True)
     elif sys.argv[1].lower() == "debug":
+        from server import startApp
         startApp(1)
     else:
         for item in os.listdir('.'):
+            from server import startApp
             if item.endswith("_test.py"):
                 subprocess.run(["python3", item], check=True)
 else:
+    from server import startApp
     startApp(0)

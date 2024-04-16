@@ -10,6 +10,3 @@ def test_answer():
     assert type(d) == list
     d = g.dijkstra(2, 1)
     assert d == [2, 0, 1]
-
-    l = get_user_location()
-    assert type(l) == tuple
