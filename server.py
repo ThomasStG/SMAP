@@ -70,9 +70,11 @@ def waitressStart():
     serve(app, host="0.0.0.0", port=3000)
 
 
-def startApp():
-    # flaskStart()
-    waitressStart()
+def startApp(mode=0):
+    if mode == 0:
+        waitressStart()
+    else:
+        flaskStart()
 
 
 @app.route('/')
@@ -184,7 +186,9 @@ def handle_data():
     # if from_loc == -1:
     #    from_loc = findClosest(get_user_location(), nodes)
     path = campus_map.dijkstra(from_loc, to_loc)
-    images = get_path(path)
+    images = get_path(path[0])
+    if "BoldedMap/162-165.png" in images:
+        images.append("BoldedMap/162-165_txt.png")
 
     return render_template("path.html", path_images=images)
 

@@ -15,9 +15,11 @@ if len(sys.argv) > 1:
 
         subprocess.run([pip_path, "install", "-r",
                        "./static/documentation/requirements.txt"], check=True)
+    elif sys.argv[1].lower() == "debug":
+        startApp(1)
     else:
         for item in os.listdir('.'):
             if item.endswith("_test.py"):
                 subprocess.run(["python3", item], check=True)
 else:
-    startApp()
+    startApp(0)

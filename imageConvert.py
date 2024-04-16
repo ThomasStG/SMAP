@@ -3,6 +3,19 @@ from PIL import Image, ImageFilter
 
 import os
 
+def convert1(image):
+    folder_path = "./tempMapStuff/"
+    file_path = f"{folder_path}{image}"
+    img = Image.open(file_path)
+    img = img.convert("RGBA")
+    pixdata = img.load()
+    for y in range(img.size[1]):
+        for x in range(img.size[0]):
+            r, g, b, a = pixdata[x, y]
+            if r > 200 and g > 200 and b > 200:
+                # Set white pixels to transparent
+                pixdata[x, y] = (255, 255, 255, 0)
+    img.save("./"+ image[:-4] + ".png", "PNG")
 
 def removeWhiteBackgrounds():
     folder_path = "./tempMapStuff/"
@@ -58,4 +71,4 @@ def convertImage():
             print("Successful")
 
 
-removeWhiteBackgrounds()
+convert1()
