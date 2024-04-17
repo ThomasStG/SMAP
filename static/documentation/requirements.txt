@@ -36,3 +36,4 @@ waitress==3.0.0
 Werkzeug==3.0.2
 wsproto==1.2.0
 zipp==3.18.1
+python-dotenv==1.0.1
