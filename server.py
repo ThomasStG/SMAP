@@ -166,10 +166,9 @@ def calendar():
         day_of_month = parsed_datetime.day
         year = parsed_datetime.year
         time = parsed_datetime.strftime("%I:%M %p")
-        event = (event[0], event[1], (day_of_week, month, day_of_month, year, time), event[3])
+        event = (event[0], event[2], (day_of_week, month,
+                 day_of_month, year, time), event[3])
         cal1.append(event)
-
-
     return render_template("calendar.html", calendar=cal1)
 
 
