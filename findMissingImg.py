@@ -3,7 +3,7 @@ from pathing import Graph
 import re
 import os
 
-from PIL import Image, ImageFilter
+#from PIL import Image, ImageFilter
 
 
 def convert1(image):
@@ -21,7 +21,7 @@ def convert1(image):
     img.save("./" + image[:-4] + ".png", "PNG")
 
 
-from PIL import Image, ImageFilter, ImageChops
+#from PIL import Image, ImageFilter, ImageChops
 
 
 def set_non_transparent_to_blue(input_path, output_path, radius=2):
@@ -66,11 +66,10 @@ def find():
 
 
 # find()
-with open('big.txt', 'r') as file:
+with open('out.txt', 'r') as file:
     warnings = file.readlines()
 
 unique_warnings = set(warnings)
-print(unique_warnings)
 """
 missing = [
 'Warning: Image not found for path between 161 and 160\n', 
@@ -95,6 +94,7 @@ missing = [
 'Warning: Image not found for path between 102 and 90\n'}
 'Warning: Image not found for path between 103 and 118\n',
 """
+missing = unique_warnings
 pattern = r'between (\d+) and (\d+)'
 
 # Extract the numbers from the paths using regular expressions
@@ -103,9 +103,9 @@ numbers = [[match.group(1), match.group(2)] for item in missing
 output = []
 for item in numbers:
     item.sort()
+    
     output.append(f"{item[0]}-{item[1]}")
 for item in output:
-    print(item)
     directory = os.listdir("./static/BoldedMap/")
     if not directory.count(item + ".png"):
         if os.path.isfile("./tempMapStuff/" + item + ".jpg"):

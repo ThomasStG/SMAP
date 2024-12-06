@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, jsonify
 from waitress import serve
 import numpy as np
 from datetime import datetime
+import json
 
 from events import getEvents
 from pathing import Graph
@@ -182,11 +183,14 @@ def handle_data():
     to_loc = int(to_str)
     # if from_loc == -1:
     #    from_loc = findClosest(get_user_location(), nodes)
-    path = campus_map.dijkstra(from_loc, to_loc)
+    #path = campus_map.dijkstra(from_loc, to_loc)
+    new = np.load("./testPathsPaths.npy", allow_pickle=True)
+    path = new[from_loc, to_loc]
+    path.insert(0, from_loc)
     images = get_path(path)
     if "BoldedMap/162-165.png" in images:
         images.append("BoldedMap/162-165_txt.png")
-
+    print(path)
     return render_template("path.html", path_images=images)
 
 
@@ -214,6 +218,7 @@ def get_food_data():
             file.write(f)
         return f
 
+
 @app.route('/interiors')
 def interiors():
     images = os.listdir("./static/images/interiors")
@@ -221,4 +226,5 @@ def interiors():
 
 
 if __name__ == "__main__":
+    
     startApp()

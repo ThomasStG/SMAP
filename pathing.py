@@ -1,4 +1,5 @@
 """Copied from https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-greedy-algo-7/"""
+
 """It has been edited to return the path of nodes between a start and end node"""
 # Python program for Dijkstra's single
 # source shortest path algorithm. The program is
@@ -9,22 +10,22 @@
 # from geopy.distance import geodesic
 # import geocoder
 
-from pathDisplay import get_path
-import sys
-import requests
-import numpy as np
 import math as m
-
+import sys
 import time
 
+import numpy as np
+import requests
 
-class Graph():
+from pathDisplay import get_path
+
+
+class Graph:
 
     def __init__(self, vertices):
         self.V = vertices
-        self.graph = [[0 for column in range(vertices)]
-                      for row in range(vertices)]
-        self.graph = np.load('./static/other/map.npy')
+        self.graph = [[0 for column in range(vertices)] for row in range(vertices)]
+        self.graph = np.load("./static/other/map.npy")
 
     def minDistance(self, dist, sptSet):
         min = sys.maxsize
@@ -48,8 +49,11 @@ class Graph():
             sptSet[x] = True
 
             for y in range(self.V):
-                if self.graph[x, y] > 0 and sptSet[y] == False and \
-                        dist[y] > dist[x] + self.graph[x, y]:
+                if (
+                    self.graph[x, y] > 0
+                    and sptSet[y] == False
+                    and dist[y] > dist[x] + self.graph[x, y]
+                ):
                     dist[y] = dist[x] + self.graph[x, y]
                     parent[y] = x
 

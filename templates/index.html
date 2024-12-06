@@ -31,7 +31,7 @@
         <div class="calendar-day1">
                 <h1  class="hot-cold">Current Weather</h1> <!-- current weather here-->
         
-                <div style="font-size: max(10%, 25px);color: rgb(255, 196, 45);">  <b>{{ weather.current.temp_f  }}°F</b><img src ="{{fcast.current.condition.icon}}" alt ="{{fcast.current.condition.text}}"></div> 
+                <div class="current-weather">  <p>{{ weather.current.temp_f  }}°F</p><img src ="{{fcast.current.condition.icon}}" alt ="{{fcast.current.condition.text}}"></div> 
         
                 <div><b>feels like {{weather.current.feelslike_f}}°F</b></div>
 
@@ -48,19 +48,21 @@
                 <h1 class="hot-cold"> HOURLY</h1>  
             </div>
             <b>
-            <div>8 am: {{fcast.forecast.forecastday[0].hour[8].temp_f}} F</div>
+            <table>
+            <tr><td>8 am: </td><td>{{fcast.forecast.forecastday[0].hour[8].temp_f}} F</td></tr>
             
-            <div>10 am: {{fcast.forecast.forecastday[0].hour[10].temp_f}} F</div>
+            <tr><td>10 am: </td><td>{{fcast.forecast.forecastday[0].hour[10].temp_f}} F</td></tr>
             
-            <div>Noon: {{fcast.forecast.forecastday[0].hour[12].temp_f}} F</div>
+            <tr><td>Noon: </td><td>{{fcast.forecast.forecastday[0].hour[12].temp_f}} F</td></tr>
             
-            <div>2 pm: {{fcast.forecast.forecastday[0].hour[14].temp_f}} F</div> 
+            <tr><td>2 pm: </td><td>{{fcast.forecast.forecastday[0].hour[14].temp_f}} F</td></tr> 
 
-            <div>4 pm: {{fcast.forecast.forecastday[0].hour[16].temp_f}} F</div>
+            <tr><td>4 pm: </td><td>{{fcast.forecast.forecastday[0].hour[16].temp_f}} F</td></tr>
 
-            <div>6 pm: {{fcast.forecast.forecastday[0].hour[18].temp_f}} F</div>
+            <tr><td>6 pm: </td><td>{{fcast.forecast.forecastday[0].hour[18].temp_f}} F</td></tr>
 
-            <div>8 pm: {{fcast.forecast.forecastday[0].hour[20].temp_f}} F</div>
+            <tr><td>8 pm: </td><td>{{fcast.forecast.forecastday[0].hour[20].temp_f}} F</td></tr>
+            </table>
             </b>
         </div>
         <div class="calendar-day2">
@@ -68,7 +70,6 @@
             <div> 
                 <h1 class="hot-cold"> Tomorrow's weather</h1>
                 <div class="calendar-day2">
-                <b>
                     <div style="display: flex; flex-direction: column;">  
                         <div style="color:#ff4000;">{{fcast.forecast.forecastday[1].day.maxtemp_f}} </div> 
                         <div style="color:aqua"> {{fcast.forecast.forecastday[1].day.mintemp_f}} </div>    
@@ -84,17 +85,28 @@
       <div id="loading">
         <img src="../static/images/Snoose.gif" alt="loading..." />
       </div>
-      <div id="food-data" style="display: none">
+      <div id="food-data" class="food-data">
+        <div style="border: grey solid 3px" class="food-item-home">
+        <p class="food-title">Every Day Sandwich and Wraps</p>
+        <div class="food-time-home">Lunch, Dinner</div>
+        <p class="food-station"></p>
+        <p class="food-description">Build your own sandwich or wrap.</p>
+        </div>
+        <div style="border: grey solid 3px" class="food-item-home">
+        <p class="food-title">Every Day Burritos, tacos, taco salads</p>
+        <div class="food-time-home">Lunch, Dinner</div>
+        <p class="food-station"></p>
+        <p class="food-description">Build your own burrito.</p>
+        </div>
+        <div class="food-item-home Green">
+        <p class="food-title">Salad Bar</p>
+        <div class="food-time-home">Lunch, Dinner</div>
+        <p class="food-station">Salad Bar</p>
+        <p class="food-description">Build your own salad.</p>
+        </div>
       </div>
     </div>
   </div>
-
-  <!--{%if food|length == 0 %}
-  <div style="font-size: max(20%, 50px); text-align: center; color: gold">
-    No Food Today
-  </div>
-  {% endif %}-->
-
 <script lang="js">
   document.addEventListener("DOMContentLoaded", function () {
     fetch("/get_food_data")
@@ -102,51 +114,53 @@
       .then((data) => {
         document.getElementById("loading").style.display = "none";
         const foodDataElement = document.getElementById("food-data");
+        foodDataElement.style.display = "block";
         data.forEach((item) => {
           const itemElement = document.createElement("div");
-          itemElement.style.width = "80%";
-          itemElement.style.alignItems = "flex-end";
-          itemElement.style.color = item.Color;
+          itemElement.className = "food-item-home";
 
-          const time = document.createElement("div");
-          time.className = "food-time-home";
-          time.textContent = item.MealTime;
-          itemElement.appendChild(time);
+            const food = document.createElement("p");
+            food.className = "food-title";
+            food.textContent = item.RecipeName;
+            itemElement.appendChild(food);
 
-          const station = document.createElement("p");
-          station.className = "food-station";
-          station.textContent = item.StationName;
-          itemElement.appendChild(station);
+            const time = document.createElement("div");
+            time.className = "food-time-home";
+            time.textContent = item.MealTime;
+            itemElement.appendChild(time);
 
-          const food = document.createElement("p");
-          food.className = "food-title";
-          food.textContent = item.RecipeName;
-          itemElement.appendChild(food);
+            const station = document.createElement("p");
+            station.className = "food-station";
+            station.textContent = item.StationName;
+            itemElement.appendChild(station);
 
-          const description = document.createElement("p");
-          description.className = "food-description";
-          description.textContent = item.Description;
-          itemElement.appendChild(description);
+            const description = document.createElement("p");
+            description.className = "food-description";
+            description.textContent = item.Description;
+            itemElement.appendChild(description);
 
-          const color = document.createElement("p");
-          color.className = "food-color";
-          color.textContent = item.Color;
-          itemElement.appendChild(color);
+            /*const color = document.createElement("p");
+            color.className = "food-color";
+            color.textContent = item.Color;*/
+            itemElement.classList.add(item.Color);
 
-          const allergens = document.createElement("div");
-          allergens.textContent = "Contains";
-          item.Icons.forEach((allergen) => {
-            const a = document.createElement("p");
-            a.textContent = allergen
-            allergens.appendChild(a)
-          });
+        const allergen_container = document.createElement("div");
+        const allergens = document.createElement("div");
+        allergen_container.textContent = "Allergy Information:";
+        allergen_container.className = "food-allergens";
+        allergens.className = "food-allergen";
+        item.Icons.forEach((allergen) => {
+            const a = document.createElement("div");
+            a.textContent = allergen;
+            allergens.appendChild(a);
+        });
+        allergen_container.appendChild(allergens);
+        itemElement.appendChild(allergen_container);
 
-          itemElement.appendChild(document.createElement("br"));
 
           foodDataElement.appendChild(itemElement);
+          foodDataElement.appendChild(document.createElement("br"));
         });
-
-        foodDataElement.style.display = "block";
       })
       .catch((error) => {
         console.error("Error fetching food data:", error);
@@ -154,76 +168,5 @@
   });
 </script>
 
-<p></p>Powered by <a href="https://www.weatherapi.com/" title="Free Weather API">WeatherAPI.com</a></p>
+<p>Powered by <a href="https://www.weatherapi.com/" title="Free Weather API">WeatherAPI.com</a></p>
 {% endblock %}
-<!--<div id="loading">
-    <img src="loading.gif" alt="Loading...">
-</div>
-<div id="food-data" style="display: none;">
-     Placeholder for food data
-</div>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    fetch("/get_food_data")
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById("loading").style.display = "none";
-        const foodDataElement = document.getElementById("food-data");
-        data.forEach(item => {
-            const itemElement = document.createElement("div");
-            itemElement.textContent = item.name + " - " + item.description;
-            foodDataElement.appendChild(itemElement);
-        });
-        foodDataElement.style.display = "block";
-    })
-    .catch(error => {
-        console.error("Error fetching food data:", error);
-    });
-});
-</script
-# in server.py
-    food data ~ 
-    {"name": "Spicy Tater Tot Breakfast Bowl", "description": "Crispy tater tots, bacon, sautéed peppers and onions and shredded cheese. Drizzled with chipotle ranch dressing."},
-    {"name": "Ham and Swiss Panini", "description": ""}
-    @app.route('/get_food_data')
-    def get_food_data():
-        return jsonify(food_data)
-
--->
-
-<!--<div id="loading">
-    <img src="loading.gif" alt="Loading...">
-</div>
-<div id="food-data" style="display: none;">
-     Placeholder for food data
-</div>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    fetch("/get_food_data")
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById("loading").style.display = "none";
-        const foodDataElement = document.getElementById("food-data");
-        data.forEach(item => {
-            const itemElement = document.createElement("div");
-            itemElement.textContent = item.name + " - " + item.description;
-            foodDataElement.appendChild(itemElement);
-        });
-        foodDataElement.style.display = "block";
-    })
-    .catch(error => {
-        console.error("Error fetching food data:", error);
-    });
-});
-</script
-# in server.py
-    food data ~ 
-    {"name": "Spicy Tater Tot Breakfast Bowl", "description": "Crispy tater tots, bacon, sautéed peppers and onions and shredded cheese. Drizzled with chipotle ranch dressing."},
-    {"name": "Ham and Swiss Panini", "description": ""}
-    @app.route('/get_food_data')
-    def get_food_data():
-        return jsonify(food_data)
-
--->

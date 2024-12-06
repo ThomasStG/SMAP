@@ -1,136 +1,196 @@
 {% extends "navbar.html" %} {% block content %}
 
 <script lang="js">
-  let Direction = [1, 1];
-  const Locations = [[
-      ["-1", "Select Parking Lot                                  "],
-      ["130", "Lot 1 (Commuter by Monadnock)"],
-      ["97", "Lot 2 (by Gustafson 'goofy' Center)"],
-      ["56", "Lot 3 (by Belknap)"],
-      ["61", "Lot 4 (Commuter by Athletic Complex)"],
-      ["23", "Lot 5 (by Athletic Complex)"],
-      ["15", "Lot 6 (by New Castle)"],
-      ["7", "Lot 7 (by Larkin Field)"],
-      ["6", "Lot 8 (behind New Castle)"],
-      ["29", "Lot 9 (behind Kingston)"],
-      ["2", "Lot 10 (far behind Kingston)"],
-      ["2", "Lot 11 (far behind Kingston)"],
-      ["2", "Lot 12 (far behind Kingston)"],
-      ["0", "Lot 13 (far behind Kingston)"],
-      ["14", "Lot 15 (behind Washington)"],
-      ["58", "Lot 16 (behind Hospitality)"],
-      ["59", "Lot 17 (behind SETA/CETA)"],
-      ["68", "Lot 18 (arround Webster)"],
-      ["68", "Lot 19 (behind Webster)"],
-      ["106", "Lot 20 (across from Webster)"],
-      ["83", "Lot 22 (Behind Dining hall / Caf)"],
-      ["82", "Lot 23 (behind ACC/Academic Center)"],
-      ["107", "Lot 24 (by Baseball fields)"],
-      ["143", "Lot 25 (by Hampton/Windsor)"],
-      ["124", "Lot 26 (by Lincoln/Conway )"],
-      ["146", "Lot 27 (arround Lincoln/Conway)"],
-      ["139", "Lot 30 (by Lincoln/Conway)"],
-      ["158", "Lot 31 (by Tukerman)"],
-      ["157", "Lot 32 (by Monadnock)"],
-      ["151", "Lot 33 (by Monadnock)"],
-      ["113", "Lot 37 (by Tennis Courts)"],
-      ["167", "Lot 38 (by Track/Stadium)"]
-      ],
-      [
-      ["-1", "Select Building"],
-      ["80", "Academic Center"],
-      ["24", "Athletic Center"],
-      ["54", "Belknap"],
-      ["150", "Conway Hall"],
-      ["78", "Dining Hall"],
-      ["111", "Gustafson Welcome Center"],
-      ["136", "Hampton Hall"],
-      ["65", "Hospitality Center"],
-      ["20", "Kingston Hall"],
-      ["117", "Learning Commons"],
-      ["153", "Lincoln Hall"],
-      ["115", "Madison House"],
-      ["167", "Mark A. Ouellette Stadium"],
-      ["127", "Morrissey House"],
-      ["116", "Monadnock Hall"],
-      ["10", "New Castle Hall"],
-      ["113", "Operations Center"],
-      ["63", "Robert A. Freese Student Center"],
-      ["64", "Robert Frost Hall"],
-      ["168", "SETA"],
-      ["165", "SETA Annex"],
-      ["158", "Tuckerman Hall"],
-      ["32", "Washington Hall"],
-      ["86", "Webster Hall"],
-      ["38", "William S. and Joan Green Center for Student Success"],
-      ["136", "Windsor Hall"],
-      ["17", "Exeter Hall"]
-  ]];
+    let Direction = [1, 1];
+    const Locations = [[
+        ["-1", "Select Parking Lot                                  "],
+        ["130", "Lot 1 (Commuter by Monadnock)"],
+        ["97", "Lot 2 (by Gustafson 'goofy' Center)"],
+        ["56", "Lot 3 (by Belknap)"],
+        ["61", "Lot 4 (Commuter by Athletic Complex)"],
+        ["23", "Lot 5 (by Athletic Complex)"],
+        ["15", "Lot 6 (by New Castle)"],
+        ["7", "Lot 7 (by Larkin Field)"],
+        ["6", "Lot 8 (behind New Castle)"],
+        ["29", "Lot 9 (behind Kingston)"],
+        ["2", "Lot 10 (far behind Kingston)"],
+        ["2", "Lot 11 (far behind Kingston)"],
+        ["2", "Lot 12 (far behind Kingston)"],
+        ["0", "Lot 13 (far behind Kingston)"],
+        ["14", "Lot 15 (behind Washington)"],
+        ["58", "Lot 16 (behind Hospitality)"],
+        ["59", "Lot 17 (behind SETA/CETA)"],
+        ["68", "Lot 18 (around Webster)"],
+        ["68", "Lot 19 (behind Webster)"],
+        ["106", "Lot 20 (across from Webster)"],
+        ["83", "Lot 22 (Behind Dining hall / Caf)"],
+        ["82", "Lot 23 (behind ACC/Academic Center)"],
+        ["107", "Lot 24 (by Baseball fields)"],
+        ["143", "Lot 25 (by Hampton/Windsor)"],
+        ["124", "Lot 26 (by Lincoln/Conway )"],
+        ["146", "Lot 27 (arround Lincoln/Conway)"],
+        ["139", "Lot 30 (by Lincoln/Conway)"],
+        ["158", "Lot 31 (by Tukerman)"],
+        ["157", "Lot 32 (by Monadnock)"],
+        ["151", "Lot 33 (by Monadnock)"],
+        ["113", "Lot 37 (by Tennis Courts)"],
+        ["167", "Lot 38 (by Track/Stadium)"]
+        ],
+        [
+        ["-1", "Select Building"],
+        ["80", "Academic Center"],
+        ["24", "Athletic Center"],
+        ["54", "Belknap"],
+        ["150", "Conway Hall"],
+        ["78", "Dining Hall"],
+        ["111", "Gustafson Welcome Center"],
+        ["136", "Hampton Hall"],
+        ["65", "Hospitality Center"],
+        ["20", "Kingston Hall"],
+        ["117", "Learning Commons"],
+        ["153", "Lincoln Hall"],
+        ["115", "Madison House"],
+        ["167", "Mark A. Ouellette Stadium"],
+        ["127", "Morrissey House"],
+        ["116", "Monadnock Hall"],
+        ["10", "New Castle Hall"],
+        ["113", "Operations Center"],
+        ["63", "Robert A. Freese Student Center"],
+        ["64", "Robert Frost Hall"],
+        ["168", "SETA"],
+        ["165", "SETA Annex"],
+        ["158", "Tuckerman Hall"],
+        ["32", "Washington Hall"],
+        ["86", "Webster Hall"],
+        ["38", "William S. and Joan Green Center for Student Success"],
+        ["136", "Windsor Hall"],
+        ["17", "Exeter Hall"]
+    ]];
+    
 
-  function FromB() {
-      Direction[0] = 1;
-      updateFromBuildingDropdown();
-  }
-  function FromP() {
-      Direction[0] = 0;
-      updateFromBuildingDropdown();
-  }
-  function ToB() {
-      Direction[1] = 1;
-      updateToBuildingDropdown();
-  }
-  function ToP() {
-      Direction[1] = 0;
-      updateToBuildingDropdown();
-  }
+    function FromB() {
+        Direction[0] = 1;
+        const fromBButton = document.getElementById("fromB");
+        fromBButton.classList.add("clicked");
+        const fromPButton = document.getElementById("fromP");
+        fromPButton.classList.remove("clicked");
+        updateFromBuildingDropdown();
+    }
+    function FromP() {
+        Direction[0] = 0;
+        const fromPButton = document.getElementById("fromP");
+        fromPButton.classList.add("clicked");
+        const fromBButton = document.getElementById("fromB");
+        fromBButton.classList.remove("clicked");
+        updateFromBuildingDropdown();
+    }
+    function ToB() {
+        Direction[1] = 1;
+        const toBButton = document.getElementById("toB");
+        toBButton.classList.add("clicked");
+        const toPButton = document.getElementById("toP");
+        toPButton.classList.remove("clicked");
+        updateToBuildingDropdown();
+    }
+    function ToP() {
+        Direction[1] = 0;
+        const toPButton = document.getElementById("toP");
+        toPButton.classList.add("clicked");
+        const toBButton = document.getElementById("toB");
+        toBButton.classList.remove("clicked");
+        updateToBuildingDropdown();
 
-  function updateFromBuildingDropdown() {
-      const fromBuildingDropdown = document.getElementById("fromBuildingDropdown");
-      fromBuildingDropdown.innerHTML = "";
-      Locations[Direction[0]].forEach(item => {
-          const option = document.createElement("option");
-          option.value = item[0];
-          option.textContent = item[1];
-          fromBuildingDropdown.appendChild(option);
-      });
-  }
+    }
 
-  function updateToBuildingDropdown() {
-      const toBuildingDropdown = document.getElementById("toBuildingDropdown");
-      toBuildingDropdown.innerHTML = "";
-      Locations[Direction[1]].forEach(item => {
-          const option = document.createElement("option");
-          option.value = item[0];
-          option.textContent = item[1];
-          toBuildingDropdown.appendChild(option);
-      });
-  }
+    function updateFromBuildingDropdown() {
+        const fromBuildingDropdown = document.getElementById("fromBuildingDropdown");
+        fromBuildingDropdown.innerHTML = "";
+        fromBuildingDropdown.classList.add("unhide")
+        Locations[Direction[0]].forEach(item => {
+            const option = document.createElement("option");
+            option.value = item[0];
+            option.textContent = item[1];
+            fromBuildingDropdown.appendChild(option);
+        });
+        const toBuildingDropdown = document.getElementById("toBuildingDropdown");
+        if (toBuildingDropdown.classList.contains("unhide")){
+          document.getElementById("pathing_form").classList.add("unhide")
+        }
+    }
+
+    function updateToBuildingDropdown() {
+        const toBuildingDropdown = document.getElementById("toBuildingDropdown");
+        toBuildingDropdown.innerHTML = "";
+        toBuildingDropdown.classList.add("unhide")
+        Locations[Direction[1]].forEach(item => {
+            const option = document.createElement("option");
+            option.value = item[0];
+            option.textContent = item[1];
+            toBuildingDropdown.appendChild(option);
+        });
+        const fromBuildingDropdown = document.getElementById("fromBuildingDropdown");
+        if (fromBuildingDropdown.classList.contains("unhide")){
+          document.getElementById("pathing_form").classList.add("unhide")
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const fromBuildingDropdown = document.getElementById("fromBuildingDropdown");
+    const toBuildingDropdown = document.getElementById("toBuildingDropdown");
+    fromBuildingDropdown.classList.remove("unhide");
+    toBuildingDropdown.classList.remove("unhide");
+    document.getElementById("pathing_form").classList.remove("unhide")
+  });
 </script>
+<div class="pathing-page">
+  <div>
+    <table>
+      <tr>
+        <td>From:</td>
+        <td>
+          <button class="pathing-button" id="fromB" onclick="FromB()">Building</button>
+        </td>
+        <td>
+          <button class="pathing-button" id="fromP" onclick="FromP()">Parking Lot</button>
+        </td>
+      </tr>
+      <tr>
+        <td>To:</td>
+        <td>
+          <button class="pathing-button" id="toB" onclick="ToB()">Building</button>
+        </td>
+        <td>
+          <button class="pathing-button" id="toP" onclick="ToP()">Parking Lot</button>
+        </td>
+      </tr>
+    </table>
+  </div>
 
-<div>
-  From:
-  <button onclick="FromB()">Building</button>
-  <button onclick="FromP()">Parking Lot</button>
+  <form
+    action="/paths/find"
+    method="POST"
+    class="pathing-form"
+    id="pathing_form">
+    <table>
+      <tr>
+    <td><label for="fromBuildingDropdown">From:</label></td>
+    <td><select
+      id="fromBuildingDropdown"
+      name="fromBuildingDropdown"
+      style="width: 52ch"
+      class="pathing-dropdown"></select>
+      </tr></td>
+      <tr>
+    <td><label for="toBuildingDropdown">To:</label></td>
+    <td><select
+      id="toBuildingDropdown"
+      name="toBuildingDropdown"
+      style="width: 52ch"
+      class="pathing-dropdown"></select></td>
+      </tr>
+    </table>
+    <button class="find-path-button" type="submit">Find Path</button>
+  </form>
 </div>
-<div>
-  To:
-  <button onclick="ToB()">Building</button>
-  <button onclick="ToP()">Parking Lot</button>
-</div>
-
-<form action="/paths/find" method="POST">
-  <label for="fromBuildingDropdown">From:</label>
-  <select
-    class="FromBuilding"
-    id="fromBuildingDropdown"
-    name="fromBuildingDropdown"
-    style="width: 52ch"></select>
-  <label for="toBuildingDropdown">To:</label>
-  <select
-    id="toBuildingDropdown"
-    name="toBuildingDropdown"
-    style="width: 52ch"></select>
-  <button type="submit">Find Path</button>
-</form>
 
 {% endblock %}

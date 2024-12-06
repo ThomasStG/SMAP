@@ -1,6 +1,7 @@
 import numpy as np
 import time
 
+INF = 99999
 t = time.time()
 
 n = np.zeros((171, 171))
@@ -645,6 +646,11 @@ n[169, 75] = 73
 
 n[170, 136] = 156
 n[170, 138] = 169
+
+for i in range(171):
+    for j in range(171):
+        if n[i,j] == 0:
+            n[i,j] = INF
 
 np.save('./static/other/map.npy', n)
 elapsed = time.time() - t

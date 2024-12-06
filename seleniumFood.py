@@ -43,7 +43,7 @@ def getFood():
                     station_name = station_name_element.text if station_name_element.get_attribute(
                         "ng-if") == "special.StationName !=''" else ""
                 except NoSuchElementException:
-                    station_name = "No Station Name"
+                    station_name = "No Station Name Available"
 
                 try:
                     meal_time_element = item.find_element(
@@ -51,7 +51,7 @@ def getFood():
                     meal_time = station_name_element.text if station_name_element.get_attribute(
                         "ng-if") == "special.MealTime !=''" else ""
                 except NoSuchElementException:
-                    meal_time = "No Meal Time"
+                    meal_time = "No Meal Time Available"
 
                 try:
                     recipe_name = item.find_element(
@@ -59,13 +59,13 @@ def getFood():
                         ".//span[@class='fbaloo head14 fblue nutritionalLink ng-binding ng-scope' and @ng-if=\"special.RecipeID!='0'\"]"
                     ).text
                 except Exception:
-                    recipe_name = "No Recipe Name"
+                    recipe_name = "No Recipe Name Available"
 
                 description = item.find_element(
                     By.CSS_SELECTOR, ".poppins.text10.fgray.ng-binding"
                 ).text if item.find_element(
                     By.CSS_SELECTOR,
-                    ".poppins.text10.fgray.ng-binding") else "No Description"
+                    ".poppins.text10.fgray.ng-binding") else "No Description Available"
 
                 icons = [
                     icon.get_attribute("title")
@@ -79,7 +79,7 @@ def getFood():
                     img_src = img_src[35:]
                     img_src = img_src[:-4]
                 except Exception:
-                    img_src = "No Rating"
+                    img_src = "No Rating Available"
 
                 food.append({
                     "StationName": station_name,
@@ -101,7 +101,7 @@ def getFood():
                     station_name = station_name_element.text if station_name_element.get_attribute(
                         "ng-if") == "special.StationName !=''" else ""
                 except NoSuchElementException:
-                    station_name = "No Station Name"
+                    station_name = "No Station Name Available"
 
                 try:
                     meal_time_element = item.find_element(
@@ -109,7 +109,7 @@ def getFood():
                     meal_time = station_name_element.text if station_name_element.get_attribute(
                         "ng-if") == "special.MealTime !=''" else ""
                 except NoSuchElementException:
-                    meal_time = "No Meal Time"
+                    meal_time = "No Meal Time Available"
 
                 try:
                     recipe_name = item.find_element(
@@ -117,13 +117,13 @@ def getFood():
                         ".//span[@class='fbaloo head14 fblue nutritionalLink ng-binding ng-scope' and @ng-if=\"special.RecipeID!='0'\"]"
                     ).text
                 except Exception:
-                    recipe_name = "No Recipe Name"
+                    recipe_name = "No Recipe Name Available"
 
                 description = item.find_element(
                     By.CSS_SELECTOR, ".poppins.text10.fgray.ng-binding"
                 ).text if item.find_element(
                     By.CSS_SELECTOR,
-                    ".poppins.text10.fgray.ng-binding") else "No Description"
+                    ".poppins.text10.fgray.ng-binding") else "No Description Available"
 
                 icons = [
                     icon.get_attribute("title")
@@ -137,7 +137,7 @@ def getFood():
                     img_src = img_src[35:]
                     img_src = img_src[:-4]
                 except Exception:
-                    img_src = "No Rating"
+                    img_src = "No Rating Available"
 
                 food.append({
                     "StationName": station_name,

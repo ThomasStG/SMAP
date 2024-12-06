@@ -31,10 +31,7 @@ def get_path(path_nodes):
 
 
 # Example usage
-path_nodes = [2, 0, 1, 3, 5, 8, 29]
+#path_nodes = [2, 0, 1, 3, 5, 8, 29]
 
-relevant_images = get_path(path_nodes)
-print(relevant_images)
-
-# Now you can use relevant_images to display or process the necessary images
-# print("Relevant Images:", relevant_images)
+#relevant_images = get_path(path_nodes)
+#print(relevant_images)

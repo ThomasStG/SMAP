@@ -8,15 +8,29 @@ input, button {
     padding: 1rem;
     border-radius: 10px;
 }
-
+.hamburger-menu{
+    position:fixed;
+    left: 3.2rem;
+    top: 1rem;
+    cursor: pointer;
+}
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     display: none;
-    transition: all 0.3s ease-in-out;
     border-top: 1px solid #fff;
+    position: absolute;
+    top: 3rem;
+    left: 1rem;
+    background-color:midnightblue;
+    border: Gold 3px solid;
+}
+
+.clicked{
+    background-color: #4f4f9e;
+    color: white;
 }
 
 li {
@@ -25,18 +39,19 @@ li {
 
 li a {
     display: block;
-    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    color: white;
 }
 
 /* Change the link color to #111 (black) on hover */
 li a:hover {
-    background-color: grey;
+    background-color: #4f4f9e;
 }
 .show {
-    display: block;
+    display: flex;
+    flex-direction: column;
 }
 h1{
     margin: 1rem
@@ -127,6 +142,7 @@ body{
     /*font-family:Copperplate;*/
     font-family: Arial, Helvetica, sans-serif;
     color:black;
+    z-index: 100;
 }
 .navbar div{
     display: flex;
@@ -193,8 +209,15 @@ body{
     align-items: center;
     margin: 1rem;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     background-color: #2f2f7e;
+}
+.current-weather{
+    font-size: max(10%, 25px);
+    color: rgb(255, 196, 45); 
+    display:flex; 
+    align-items:center;
+    gap: 12px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -223,9 +246,10 @@ body{
 }
 .calendar-day1{
     width: 90%;
-    height: 20%;
+    height: fit-content;
     align-items: center;
     margin: 1rem;
+    padding-bottom: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -233,9 +257,10 @@ body{
 }
 .calendar-day2{
     width: 90%;
-    height: 20%;
+    height: fit-content;
     align-items: center;
     margin: 1rem;
+    padding-bottom: 1rem;
     display: flex;
     justify-content: space-evenly;
     background-color: #2f2f7e;
@@ -256,6 +281,10 @@ body{
     background-clip: text;
     color: transparent;
 }
+.food-data{
+    display:none;
+    align-items: center;
+}
 .icon{
     height: 2.8rem;
     width: auto;
@@ -265,13 +294,108 @@ body{
     z-index: 30;
 }
 .interior-map{
-    
     height:60vh;
     width: auto;
 }
-.hamburger-menu{
-    position:fixed;
-    left: 3.2rem;
-    top: 1rem;
-    cursor: pointer;
+
+
+
+.food-item-home{
+    width: 95%;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: #2f2f7e;
+    height:fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 3px;
+}
+
+.food-time-home{
+    font-size: large;
+    margin-bottom: 4px;
+}
+.food-station{
+    margin-bottom: 12px;
+}
+.food-title{
+    font-size: x-large;
+}
+.food-description{
+    margin-bottom: 4px;
+}
+.food-color{
+    margin-bottom: 4px;
+}
+.food-allergens{
+    margin-bottom: 4px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+}
+.food-allergen{
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+}
+
+.pathing-button {
+    font-size: small;
+}
+.find-path-button {
+    font-size: small;
+    height:fit-content;
+}
+
+.pathing-dropdown {
+    display: none;
+    height:fit-content
+}
+
+
+.pathing-page {
+    background-color: midnightblue;
+    display: flex;
+    margin-left: 2vw;
+    margin-right: 2vw;
+    
+    flex-direction: column;
+    min-width:200px;
+    max-width: 100%;
+    min-height: calc(100vh - 4.5rem);
+    border: gold solid 3px;
+    align-items: center;
+}
+.pathing-form{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+.unhide{
+    display: flex;
+}
+
+.Red{
+    border: red solid 3px;
+}
+
+.Green{
+    border: green solid 3px;
+}
+
+.Yellow{
+    border: yellow solid 3px;
+}
+
+.calendar-day1, table, tr, td{
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.show-food {
+    display:block;
 }
