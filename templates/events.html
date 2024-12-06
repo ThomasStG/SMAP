@@ -1,6 +1,4 @@
-{% extends "navbar.html" %}
-
-{% block content %}
+{% extends "navbar.html" %} {% block content %}
 <!--
 buildings = {
 'Academic Center': 0,
@@ -33,104 +31,153 @@ buildings = {
 -->
 
 <script lang="ts">
-    function SETA() {
-        alert("You clicked CETA");
-    }
-    function WebsterHall() {
-        alert("You clicked Webster");
-    }
-    function DiningHall() {
-        alert("You clicked The dining hall");
-    }
-    function ACC() {
-        alert("you clicked the ACC");
-    }
-    function Hospitality() {
-        alert("You clicked Hospitality");
-    }
-    function StudentCenter() {
-        alert("You clicked the Student Center (it has the wellness center in it)");
-    }
-    function GreenCenter() {
-        alert("You clicked the Green Center");
-    }
-    function Kingston() {
-        alert("you clicked on Kingston");
-    }
-    function AthleticCenter() {
-        alert("You clicked on the Athletic Center");
-    }
-    function RobertFrost() {
-        alert("You clicked on Robert Frost");
-    }
-    document.addEventListener("DOMContentLoaded", function () {
-        // Function to update map coordinates based on screen size and add offset
-        function updateMapCoordinates() {
-            var xOffset = 0;
-            var yOffset = 0;
-            var w = window.innerWidth;
-            var originalScreenWidth = 2134;
-            var scaleFactor = w / originalScreenWidth;
-            var areas = document.querySelectorAll('map[name="workmap"] area');
-            areas.forEach(function (area) {
-                var coords = area.getAttribute('coords').split(',');
+  function SETA() {
+    alert("You clicked CETA");
+  }
+  function WebsterHall() {
+    alert("You clicked Webster");
+  }
+  function DiningHall() {
+    alert("You clicked The dining hall");
+  }
+  function ACC() {
+    alert("you clicked the ACC");
+  }
+  function Hospitality() {
+    alert("You clicked Hospitality");
+  }
+  function StudentCenter() {
+    alert("You clicked the Student Center (it has the wellness center in it)");
+  }
+  function GreenCenter() {
+    alert("You clicked the Green Center");
+  }
+  function Kingston() {
+    alert("you clicked on Kingston");
+  }
+  function AthleticCenter() {
+    alert("You clicked on the Athletic Center");
+  }
+  function RobertFrost() {
+    alert("You clicked on Robert Frost");
+  }
+  document.addEventListener("DOMContentLoaded", function () {
+    // Function to update map coordinates based on screen size and add offset
+    function updateMapCoordinates() {
+      var xOffset = 0;
+      var yOffset = 0;
+      var w = window.innerWidth;
+      var originalScreenWidth = 2134;
+      var scaleFactor = w / originalScreenWidth;
+      var areas = document.querySelectorAll('map[name="workmap"] area');
+      areas.forEach(function (area) {
+        var coords = area.getAttribute("coords").split(",");
 
-                // Add xOffset to X coordinates and yOffset to Y coordinates
-                for (var i = 0; i < coords.length; i += 2) {
-<<<<<<< HEAD
-                    coords[i] = Math.round((parseFloat(coords[i]) * scaleFactor + xOffset));
-=======
-                    coords[i] = Math.round((parseFloat(coords[i]) * (scaleFactor + xOffset)));
->>>>>>> main
-                    coords[i + 1] = Math.round((parseFloat(coords[i + 1]) * (scaleFactor + yOffset)));
-                }
-
-                area.setAttribute('coords', coords.join(','));
-            });
+        // Add xOffset to X coordinates and yOffset to Y coordinates
+        for (var i = 0; i < coords.length; i += 2) {
+          coords[i] = Math.round(
+            parseFloat(coords[i]) * (scaleFactor + xOffset)
+          );
+          coords[i + 1] = Math.round(
+            parseFloat(coords[i + 1]) * (scaleFactor + yOffset)
+          );
         }
 
-        // Initial update
-        updateMapCoordinates();
+        area.setAttribute("coords", coords.join(","));
+      });
+    }
 
-        // Update map coordinates on window resize
-        window.addEventListener('resize', function () {
-            updateMapCoordinates();
-        });
+    // Initial update
+    updateMapCoordinates();
+
+    // Update map coordinates on window resize
+    window.addEventListener("resize", function () {
+      updateMapCoordinates();
     });
+  });
 </script>
-    <h1 style="color: white; text-align:center;">
-        SNHU
-    </h1>
-    <div id="mapWithMap">
-        <img style="width:100%"src="./../static/images/FullMap.png" id="map"alt="SNHU Campus" usemap="#workmap">
+<h1 style="color: white; text-align: center">SNHU</h1>
+<div id="mapWithMap">
+  <img
+    style="width: 100%"
+    src="./../static/images/FullMap.png"
+    id="map"
+    alt="SNHU Campus"
+    usemap="#workmap" />
 
-        <map name="workmap">
-            <area target="" alt="SETA" title="SETA"
-                coords="774,386,785,379,798,390,793,418,825,428,798,494,768,473,755,486,734,473,742,451,761,413"
-                shape="poly" onclick="SETA()">
-            <area target="" alt="Webster Hall" title="Webster Hall" coords="1015,30,1040,40,996,162,966,153" shape="poly"
-                onclick="WebsterHall()">
-            <area target="" alt="Dining Hall" title="Dining Hall"
-                coords="879,803,908,812,904,831,974,856,994,807,983,799,987,790,928,760,923,767,896,760,885,784,883,790"
-                shape="poly" onclick="DiningHall()">
-            <area target="" alt="ACC" title="ACC" coords="955,611,979,581,1060,637,1042,673" shape="poly" onclick="ACC()">
-            <area target="" alt="Hospitality" title="Hospitality" coords="825,573,881,586,900,528,862,515,851,545,836,543"
-                shape="poly" onclick="Hospitality()">
-            <area target="" alt="Student Center" title="Student Center"
-                coords="651,713,683,735,674,750,700,760,670,799,661,826,644,812,627,829,589,807,617,773,610,763"
-                shape="poly" onclick="StudentCenter()">
-            <area target="" alt="Green Center" title="Green Center"
-                coords="651,694,697,735,719,716,708,699,729,713,744,686,717,650,727,628,706,609,676,639" shape="poly"
-                onclick="GreenCenter()">
-            <area target="" alt="Kingston" title="Kingston" coords="489,626,550,607,551,588,604,505,627,511,566,633,491,654"
-                shape="poly" onclick="Kingston()">
-            <area target="" alt="Athletic Center" title="Athletic Center"
-                coords="323,969,361,924,397,948,468,1016,501,1050,474,1080,453,1059,442,1075,337,999" shape="poly"
-                onclick="AthleticCenter()">
-            <area target="" alt="Robert Frost" title="Robert Frost" coords="670,886,704,839,749,871,714,922" shape="poly"
-                onclick="RobertFrost()">
-        </map>
-    </div>
+  <map name="workmap">
+    <area
+      target=""
+      alt="SETA"
+      title="SETA"
+      coords="774,386,785,379,798,390,793,418,825,428,798,494,768,473,755,486,734,473,742,451,761,413"
+      shape="poly"
+      onclick="SETA()" />
+    <area
+      target=""
+      alt="Webster Hall"
+      title="Webster Hall"
+      coords="1015,30,1040,40,996,162,966,153"
+      shape="poly"
+      onclick="WebsterHall()" />
+    <area
+      target=""
+      alt="Dining Hall"
+      title="Dining Hall"
+      coords="879,803,908,812,904,831,974,856,994,807,983,799,987,790,928,760,923,767,896,760,885,784,883,790"
+      shape="poly"
+      onclick="DiningHall()" />
+    <area
+      target=""
+      alt="ACC"
+      title="ACC"
+      coords="955,611,979,581,1060,637,1042,673"
+      shape="poly"
+      onclick="ACC()" />
+    <area
+      target=""
+      alt="Hospitality"
+      title="Hospitality"
+      coords="825,573,881,586,900,528,862,515,851,545,836,543"
+      shape="poly"
+      onclick="Hospitality()" />
+    <area
+      target=""
+      alt="Student Center"
+      title="Student Center"
+      coords="651,713,683,735,674,750,700,760,670,799,661,826,644,812,627,829,589,807,617,773,610,763"
+      shape="poly"
+      onclick="StudentCenter()" />
+    <area
+      target=""
+      alt="Green Center"
+      title="Green Center"
+      coords="651,694,697,735,719,716,708,699,729,713,744,686,717,650,727,628,706,609,676,639"
+      shape="poly"
+      onclick="GreenCenter()" />
+    <area
+      target=""
+      alt="Kingston"
+      title="Kingston"
+      coords="489,626,550,607,551,588,604,505,627,511,566,633,491,654"
+      shape="poly"
+      onclick="Kingston()" />
+    <area
+      target=""
+      alt="Athletic Center"
+      title="Athletic Center"
+      coords="323,969,361,924,397,948,468,1016,501,1050,474,1080,453,1059,442,1075,337,999"
+      shape="poly"
+      onclick="AthleticCenter()" />
+    <area
+      target=""
+      alt="Robert Frost"
+      title="Robert Frost"
+      coords="670,886,704,839,749,871,714,922"
+      shape="poly"
+      onclick="RobertFrost()" />
+  </map>
+</div>
 {% endblock %}
 <!--        <area target="" alt="sc, gc, dh, lc, rf" title="sc, gc, dh, lc, rf" href="" coords="
                         649,771,
